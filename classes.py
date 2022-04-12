@@ -11,13 +11,13 @@ class Player(Block):
 
     def move_up(self, obj):
         if obj.y == self.y + self.step:
-            self.obj += self.step
+            obj.y += self.step
         else:
             self.y -= self.step
 
     def move_down(self, obj):
         if obj.y == self.y - self.step:
-            self.obj -= self.step
+            obj.y -= self.step
         else:
             self.y += self.step
 
