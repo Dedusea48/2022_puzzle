@@ -32,3 +32,11 @@ class Player(Block):
             obj.x += self.step
         else:
             self.x += self.step
+
+class Field:
+    def __init__(self, level_field):
+        self.level_field = None
+        self.level = level_field
+
+    def size(self):
+        return len(self.level_field), len(self.level_field[0])
