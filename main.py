@@ -6,7 +6,7 @@ class Block:
 
 class Player(Block):
     def __init__(self, x0, y0):
-        super.__init__(x0, y0)
+        super().__init__(x0, y0)
         self.step = 1
 
     def move_up(self):
