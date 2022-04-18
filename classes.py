@@ -1,5 +1,6 @@
 import pygame.draw as dr
 
+
 # Палитра
 RED = 0xFF0000
 BLUE = 0x0000FF
@@ -24,11 +25,14 @@ class Player(Block):
     Знает, как нарисовать себя.
     """
 
-    def __init__(self, x0, y0):
+    def __init__(self, x0, y0, images):
         super().__init__(x0, y0)
         self.step = 1
         self.side = 40
         self.color = YELLOW
+        self.sprites = images
+        self.current_sprite = 0
+        self.image = self.sprites[self.current_sprite]
 
     def move_up(self, obj):
         if obj.y == self.y + self.step:
@@ -95,7 +99,20 @@ class Player(Block):
         platform.squares[self.x][self.y][1] = self
 
     def draw(self, screen, x, y):  # QUESTION Зачем? Можно же просто обратиться к полю.
-        dr.rect(screen, self.color, [x, y, self.side, self.side])
+        rect = self.image.get_rect()
+        rect.center = (x + 22, y - 20)
+        screen.blit(self.image, rect)
+
+    def update(self, speed):
+        """
+        Функция меняет изображения игрока с заданной скоростью
+        :param speed: - скорость анимации
+        :return:
+        """
+        self.current_sprite += speed
+        if int(self.current_sprite) >= len(self.sprites):
+            self.current_sprite = 0
+        self.image = self.sprites[int(self.current_sprite)]
 
 
 class Platform:
