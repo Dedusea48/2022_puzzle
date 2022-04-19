@@ -2,27 +2,14 @@ import classes
 import pygame
 from PIL import Image, ImageSequence
 import glob
+import images
 
 WIDTH = 600
 HEIGHT = 600
 FPS = 30
 
 
-def upload_images1():
-    """
-    функция загружает изображения игрока, когда он не движется, и возвращает список изображений
-    :return: - список изображений
-    """
-    sprites = list([])
-    sprites.append(pygame.image.load('tile000.png'))
-    sprites.append(pygame.image.load('tile001.png'))
-    sprites.append(pygame.image.load('tile002.png'))
-    sprites.append(pygame.image.load('tile003.png'))
-
-    return sprites
-
-
-images = upload_images1()
+images = images.upload_images_player()
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
