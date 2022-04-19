@@ -100,7 +100,7 @@ class Player(Block):
 
     def draw(self, screen, x, y):  # QUESTION Зачем? Можно же просто обратиться к полю.
         rect = self.image.get_rect()
-        rect.center = (x + 22, y - 20)
+        rect.center = (x + 20, y + 20)
         screen.blit(self.image, rect)
 
     def update(self, speed):
