@@ -1,6 +1,5 @@
 import pygame.draw as dr
 
-
 # Палитра
 RED = 0xFF0000
 BLUE = 0x0000FF
@@ -115,69 +114,36 @@ class Player(Block):
         self.image = self.sprites[int(self.current_sprite)]
 
 
-class Platform:
-    """
-    Создаёт игровую клеточную платформу, на которой будут находится объекты.
-    Платформа состоит из клеток. Каждая клетка имеет два уровня: фундамент (0) и то, что стоит на фундаменте (1).
-
-    Чтобы что-то извлечь из платформы, нужно указать координаты клетки - x и y, потом указать уровень (0 или 1),
-    например Platform.squares[x][y][0] (извлечение объекта фундамента клетки с координатами x и y)
-
-    Платформа самостоятельно организовывает свой пол(фундамент) из плиток (Tile).
-    """
-
-    def __init__(self, horizontal_side, vertical_side, screen, x0, y0):
-        self.screen = screen
-        self.x0 = x0
-        self.y0 = y0
-
-        self.vertical_side = vertical_side
-        self.horizontal_side = horizontal_side
-        self.square_side = 40
-        self.colors = [GREEN, GREY]
-        self.squares = []
-
-        check = 0
-        for i in range(horizontal_side):
-            column = []
-            check = not check
-            for j in range(vertical_side):
-                tile = Tile(self.square_side, self.colors[check])
-                square = [tile, None]
-                column.append(square)
-                check = not check
-            self.squares.append(column)
-
-    def size(self):
-        return self.vertical_side, self.horizontal_side
-
-    def draw(self):
-        """
-        Рисует все объекты, которые находятся в клетках (squares).
-        :return:
-        """
-        check = 0
-        for i in range(self.horizontal_side):
-            check = not check
-            for j in range(self.vertical_side):
-
-                for k in [0, 1]:
-                    if self.squares[i][j][k] is not None:
-                        self.squares[i][j][k].draw(self.screen, self.x0 + i * self.square_side,
-                                                   self.y0 + j * self.square_side)
-
-                check = not check
-
-
 class Tile:
     """
-    Создаёт квадратную плитку данного цвета.
-    Знает, как себя нарисовать.
+    Игровая единица площади, которая содержит заднюю клетку (BackTile) и верхнюю (FrontTile)
     """
 
-    def __init__(self, side, color):
-        self.side = side
-        self.color = color
+    def __init__(self, x, y, back_tile, front_tile):
+        self.x = x
+        self.y = y
+        self.back = back_tile
+        self.front = front_tile
 
-    def draw(self, screen, x, y):
-        dr.rect(screen, self.color, [x, y, self.side, self.side])
+    def draw(self):
+        self.back.draw()
+        self.front.draw()
+
+
+class BackTile:
+    def __init__(self, the_tile):
+        self.x = the_tile.x
+        self.y = the_tile.y
+
+    def draw(self):
+        pass
+
+
+class Floor(BackTile):
+    def draw(self):
+        pass
+
+
+class Water(BackTile):
+    def draw(self):
+        pass
