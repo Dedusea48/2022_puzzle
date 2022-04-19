@@ -20,6 +20,7 @@ class Tile:
     def __init__(self, x, y, back_obj, front_obj, screen):
         self.x = x
         self.y = y
+        self.size = 40
         self.back_obj = back_obj
         self.front_obj = front_obj
         self.screen = screen
