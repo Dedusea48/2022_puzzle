@@ -12,13 +12,51 @@ WHITE = 0xFFFFFF
 GREY = 0x7D7D7D
 
 
-class Block:
-    def __init__(self, x0, y0):
-        self.x = x0
-        self.y = y0
+class Tile:
+    """
+    Игровая единица площади, которая содержит задние объекты (BackObj) и верхнии (FrontObj)
+    """
+
+    def __init__(self, x, y, back_obj, front_obj):
+        self.x = x
+        self.y = y
+        self.back_obj = back_obj
+        self.front_obj = front_obj
+
+    def draw(self):
+        self.back_obj.draw()
+        self.front_obj.draw()
 
 
-class Player(Block):
+class BackObj:
+    def __init__(self, the_tile):
+        self.x = the_tile.x
+        self.y = the_tile.y
+
+    def draw(self):
+        pass
+
+
+class Floor(BackObj):
+    def draw(self):
+        pass
+
+
+class Water(BackObj):
+    def draw(self):
+        pass
+
+
+class FrontObj:
+    def __init__(self, the_tile):
+        self.x = the_tile.x
+        self.y = the_tile.y
+
+    def draw(self):
+        pass
+
+
+class Player(FrontObj):  # TODO переделать под новый класс FrontObj
     """
     Создаёт игрока. При создании ему передаюся его координаты на платформе, а не на экране.
     Знает, как нарисовать себя.
@@ -112,38 +150,3 @@ class Player(Block):
         if int(self.current_sprite) >= len(self.sprites):
             self.current_sprite = 0
         self.image = self.sprites[int(self.current_sprite)]
-
-
-class Tile:
-    """
-    Игровая единица площади, которая содержит заднюю клетку (BackTile) и верхнюю (FrontTile)
-    """
-
-    def __init__(self, x, y, back_tile, front_tile):
-        self.x = x
-        self.y = y
-        self.back = back_tile
-        self.front = front_tile
-
-    def draw(self):
-        self.back.draw()
-        self.front.draw()
-
-
-class BackTile:
-    def __init__(self, the_tile):
-        self.x = the_tile.x
-        self.y = the_tile.y
-
-    def draw(self):
-        pass
-
-
-class Floor(BackTile):
-    def draw(self):
-        pass
-
-
-class Water(BackTile):
-    def draw(self):
-        pass
