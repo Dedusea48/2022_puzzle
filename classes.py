@@ -14,11 +14,11 @@ GREY = 0x7D7D7D
 
 class Level:
     """
-    Создаёт игровую клеточную платформу, на которой будут находится объекты.
-    Платформа состоит из клеток. Каждая клетка имеет два уровня: фундамент (0) и то, что стоит на фундаменте (1).
-    Чтобы что-то извлечь из платформы, нужно указать координаты клетки - x и y, потом указать уровень (0 или 1),
-    например Platform.squares[x][y][0] (извлечение объекта фундамента клетки с координатами x и y)
-    Платформа самостоятельно организовывает свой пол(фундамент) из плиток (Tile).
+    Создаёт игровой клеточный уровень, в котором будут находится объекты.
+    Уровень состоит из клеток. Каждая клетка состоит из двух частей: back_obj(то, на чём стоят)  и front_obj(то, что стоит на back_obj).
+    Чтобы что-то извлечь из платформы, нужно указать координаты клетки - x и y, потом через точку указать часть клетки.
+    Например Platform.squares[x][y].back_obj (извлечение нижней части клетки с координатами x и y)
+    Уровень самостоятельно организовывает свой пол из класса Floor.
     """
 
     def __init__(self, horizontal_side, vertical_side, screen, x0, y0):
@@ -52,7 +52,7 @@ class Level:
 
 class Tile:
     """
-    Игровая единица площади, которая содержит задние объекты (BackObj) и верхнии (FrontObj)
+    Игровая единица площади, которая содержит задние объекты (BackObj) и верхние (FrontObj).
     """
 
     def __init__(self, x, y, screen):
@@ -82,10 +82,11 @@ class BackObj:
 
 
 class Floor(BackObj):
-
     def draw(self, x0, y0):
-        dr.rect(self.screen, 'black', [x0 + self.x * self.size, y0 + self.y * self.size,
+        dr.rect(self.screen, 'white', [x0 + self.x * self.size, y0 + self.y * self.size,
                                        self.size, self.size])
+        dr.rect(self.screen, 'black', [x0 + self.x * self.size, y0 + self.y * self.size,
+                                       self.size, self.size], width=1)
 
 
 class Water(BackObj):
