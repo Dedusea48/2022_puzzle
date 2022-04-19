@@ -17,11 +17,12 @@ class Tile:
     Игровая единица площади, которая содержит задние объекты (BackObj) и верхнии (FrontObj)
     """
 
-    def __init__(self, x, y, back_obj, front_obj):
+    def __init__(self, x, y, back_obj, front_obj, screen):
         self.x = x
         self.y = y
         self.back_obj = back_obj
         self.front_obj = front_obj
+        self.screen = screen
 
     def draw(self):
         self.back_obj.draw()
@@ -32,6 +33,7 @@ class BackObj:
     def __init__(self, the_tile):
         self.x = the_tile.x
         self.y = the_tile.y
+        self.screen = the_tile.screen
 
     def draw(self):
         pass
@@ -51,6 +53,7 @@ class FrontObj:
     def __init__(self, the_tile):
         self.x = the_tile.x
         self.y = the_tile.y
+        self.screen = the_tile.screen
 
     def draw(self):
         pass
