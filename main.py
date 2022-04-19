@@ -1,9 +1,9 @@
 import classes
 import pygame
-import classes_back_obj
-import classes_front_obj
-from PIL import Image, ImageSequence
-import glob
+# import classes_back_obj
+# import classes_front_obj
+# from PIL import Image, ImageSequence
+# import glob
 import images
 
 WIDTH = 600
