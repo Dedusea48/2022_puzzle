@@ -4,7 +4,7 @@ class FrontObj:
         self.y = the_tile.y
         self.screen = the_tile.screen
 
-    def draw(self):
+    def draw(self, x0, y0):
         pass
 
 
@@ -53,9 +53,9 @@ class Player(FrontObj):  # TODO переделать под новый клас�
         :param platform: платформа, на которой находится игрок.
         :return:
         """
-        platform.squares[self.x][self.y][1] = None
+        platform.tiles[self.x][self.y][1] = None
         self.y -= self.step
-        platform.squares[self.x][self.y][1] = self
+        platform.tiles[self.x][self.y][1] = self
 
     def step_down(self, platform):
         """
@@ -63,9 +63,9 @@ class Player(FrontObj):  # TODO переделать под новый клас�
         :param platform: платформа, на которой находится игрок.
         :return:
         """
-        platform.squares[self.x][self.y][1] = None
+        platform.tiles[self.x][self.y][1] = None
         self.y += self.step
-        platform.squares[self.x][self.y][1] = self
+        platform.tiles[self.x][self.y][1] = self
 
     def step_left(self, platform):
         """
@@ -73,9 +73,9 @@ class Player(FrontObj):  # TODO переделать под новый клас�
         :param platform: платформа, на которой находится игрок.
         :return:
         """
-        platform.squares[self.x][self.y][1] = None
+        platform.tiles[self.x][self.y][1] = None
         self.x -= self.step
-        platform.squares[self.x][self.y][1] = self
+        platform.tiles[self.x][self.y][1] = self
 
     def step_right(self, platform):
         """
@@ -83,9 +83,9 @@ class Player(FrontObj):  # TODO переделать под новый клас�
         :param platform: платформа, на которой находится игрок.
         :return:
         """
-        platform.squares[self.x][self.y][1] = None
+        platform.tiles[self.x][self.y][1] = None
         self.x += self.step
-        platform.squares[self.x][self.y][1] = self
+        platform.tiles[self.x][self.y][1] = self
 
     def draw(self, screen, x, y):  # QUESTION Зачем? Можно же просто обратиться к полю.
         rect = self.image.get_rect()

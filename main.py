@@ -14,9 +14,9 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 finished = False
-level = classes.Platform(5, 10, screen, 100, 100)
+level = classes.Level(5, 10, screen, 100, 100)
 player = classes.Player(1, 2, images)
-level.squares[1][2][1] = player
+level.tiles[1][2][1] = player
 
 while not finished:
     level.draw()
