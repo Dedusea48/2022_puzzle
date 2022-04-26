@@ -59,15 +59,16 @@ class Spring(BackObj):
 
 class Ladder(BackObj):
     def __init__(self, the_tile):
+        the_tile.back_obj = self
         super().__init__(the_tile)
-        self.name = "ladder"
+        self.name = 'ladder'
 
     def draw(self, x0, y0):
         dr.rect(self.screen, 'orange', [x0 + self.x * self.size, y0 + self.y * self.size,
-                                        self.size, self.size])
+                                       self.size, self.size])
 
     def floor_up(self, player):
-        player.floor += 1
+        player.change_floor('up')
 
     def floor_down(self, player):
-        player.floor -= 1
+        player.change_floor('down')

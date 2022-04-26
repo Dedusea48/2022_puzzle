@@ -30,15 +30,21 @@ front.Box(level.tiles[6][7], box_img)
 front.Wall(level.tiles[5][3], wall_img)
 
 back.Water(level.tiles[7][3])
+back.Water(level.tiles[7][4])
+back.Ladder(level.tiles[7][7])
 
-while not finished:
-    level.draw()
+level2 = classes.Level(10, 10, screen, 100, 100)
+
+FLOORS = (level, level2)
+
+
+def game_process(is_finished, player):
+    FLOORS[player.floor].draw()
     pygame.display.update()
     clock.tick(FPS)
-    keys = pygame.key.get_pressed()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            finished = True
+            is_finished = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 player.move('up')
@@ -49,9 +55,13 @@ while not finished:
             elif event.key == pygame.K_RIGHT:
                 player.move('right')
             elif event.key == pygame.K_SPACE:
-                player.change_floor('up', floors)  # TODO СДЕЛАТЬ МАССИВ ЭТАЖЕЙ (наверное)
-            elif event.ley == pygame.K_LSHIFT:
-                player.change_floor('down', floors)  # TODO СДЕЛАТЬ МАССИВ ЭТАЖЕЙ (я не знаю как вы будете это делать)
+                player.change_floor('up', FLOORS)
+            elif event.key == pygame.K_LSHIFT:
+                player.change_floor('down', FLOORS)
+    player.update(0.25)
 
+
+while not finished:
+    game_process(finished, player)
 
     player.update(0.25)
