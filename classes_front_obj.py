@@ -28,6 +28,13 @@ class Box(FrontObj):
         dr.rect(self.screen, self.color, [x0 + self.x * 40, y0 + self.y * 40,
                                           40, 40])
 
+    def check_floor(self, level):
+        if level.tiles[self.x][self.y].back_obj.name == 'water':
+            level.tiles[self.x][self.y].front_obj = None
+            level.tiles[self.x][self.y].back_obj = self
+
+
+
 
 class Wall(Box):
     def __init__(self, the_tile):
@@ -65,16 +72,16 @@ class Player(FrontObj):
             _x += 1
 
         if border_control(_x, _y, self.level):
-
             self.step(_x, _y)
         else:
             self.kick(_x, _y)
 
     def step(self, _x, _y):
-        self.level.tiles[self.x][self.y].front_obj = None
-        self.level.tiles[_x][_y].front_obj = self
-        self.x = _x
-        self.y = _y
+        if self.level.tiles[_x][_y].back_obj.name != 'water':
+            self.level.tiles[self.x][self.y].front_obj = None
+            self.level.tiles[_x][_y].front_obj = self
+            self.x = _x
+            self.y = _y
 
     def kick(self, _x, _y):
         if self.level.tiles[_x][_y].front_obj.name != 'wall':
@@ -86,3 +93,5 @@ class Player(FrontObj):
                 self.level.tiles[_x][_y].front_obj = None
                 self.level.tiles[__x][__y].front_obj.x = __x
                 self.level.tiles[__x][__y].front_obj.y = __y
+                self.level.tiles[__x][__y].front_obj.check_floor(self.level)
+

@@ -13,6 +13,10 @@ class BackObj:
 
 
 class Floor(BackObj):
+    def __init__(self, the_tile):
+        super().__init__(the_tile)
+        self.name = 'floor'
+
     def draw(self, x0, y0):
         dr.rect(self.screen, 'white', [x0 + self.x * self.size, y0 + self.y * self.size,
                                        self.size, self.size])
@@ -21,6 +25,10 @@ class Floor(BackObj):
 
 
 class Water(BackObj):
+    def __init__(self, the_tile):
+        super().__init__(the_tile)
+        self.name = 'water'
+
     def draw(self, x0, y0):
         dr.rect(self.screen, 'blue', [x0 + self.x * self.size, y0 + self.y * self.size,
-                                       self.size, self.size])
+                                      self.size, self.size])

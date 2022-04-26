@@ -1,7 +1,7 @@
 import classes
 import pygame
 import classes_front_obj as front
-# import classes_back_obj
+import classes_back_obj as back
 # import classes_front_obj
 # from PIL import Image, ImageSequence
 # import glob
@@ -19,10 +19,12 @@ finished = False
 level = classes.Level(10, 10, screen, 100, 100)
 player = front.Player(level.tiles[1][2], level)
 level.tiles[1][2].front_obj = player
-box = front.Box(level.tiles[3][2])
-level.tiles[3][2].front_obj = box
+
+level.tiles[3][2].front_obj = front.Box(level.tiles[3][2])
 
 level.tiles[5][3].front_obj = front.Wall(level.tiles[5][3])
+
+level.tiles[7][3].back_obj = back.Water(level.tiles[7][3])
 
 while not finished:
     level.draw()
