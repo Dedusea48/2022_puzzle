@@ -36,6 +36,8 @@ class Box(FrontObj):
             level.tiles[self.x][self.y].back_obj = self
 
 
+
+
 class Wall(Box):
     def __init__(self, the_tile, image):
         super().__init__(the_tile, image)
@@ -94,7 +96,7 @@ class Player(FrontObj):
 
         if border_control(_x, _y, self.level):
             self.step(_x, _y)
-        else:
+        elif 0 <= _x < self.level.horizontal_side and 0 <= _y < self.level.vertical_side:
             self.kick(_x, _y)
 
     def step(self, _x, _y):
