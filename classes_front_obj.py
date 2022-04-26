@@ -38,6 +38,7 @@ class Box(FrontObj):
 
 class Wall(Box):
     def __init__(self, the_tile, image):
+        the_tile.front_obj = self
         super().__init__(the_tile, image)
         self.name = 'wall'
         self.color = 'gray'
@@ -50,8 +51,10 @@ class Player(FrontObj):
     """
 
     def __init__(self, the_tile, level, images):
+        the_tile.front_obj = self
         super().__init__(the_tile)
         self.name = 'player'
+        self.floor = 0
         self.level = level
         self.sprites = images
         self.current_sprite = 0
