@@ -22,6 +22,7 @@ level.tiles[1][2].front_obj = player
 box = front.Box(level.tiles[3][2])
 level.tiles[3][2].front_obj = box
 
+level.tiles[5][3].front_obj = front.Wall(level.tiles[5][3])
 
 while not finished:
     level.draw()
