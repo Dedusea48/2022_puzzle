@@ -71,6 +71,7 @@ def start_the_game() -> None:
                                         floors)  # TODO СДЕЛАТЬ МАССИВ ЭТАЖЕЙ (я не знаю как вы будете это делать)
 
         player.update(0.25)
+    surface = create_example_window('Example - Simple', (600, 400))
 
 
 mytheme = pygame_menu.Theme(widget_font=pygame_menu.font.FONT_8BIT,
