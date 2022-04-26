@@ -27,7 +27,7 @@ class Box(FrontObj):
 
     def draw(self, x0, y0):
         rect = self.image.get_rect()
-        rect.center = (x0 + self.x * 40 + 19, y0 + self.y * 40 + 20boz
+        rect.center = (x0 + self.x * 40 + 19, y0 + self.y * 40 + 20)
         self.screen.blit(self.image, rect)
 
     def check_floor(self, level):
@@ -36,15 +36,11 @@ class Box(FrontObj):
             level.tiles[self.x][self.y].back_obj = self
 
 
-
-
 class Wall(Box):
     def __init__(self, the_tile, image):
         super().__init__(the_tile, image)
         self.name = 'wall'
         self.color = 'gray'
-
-
 
 
 class Player(FrontObj):
@@ -65,10 +61,9 @@ class Player(FrontObj):
         rect = self.image.get_rect()
         rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
         self.screen.blit(self.image, rect)
-    def change_sprites(self,images2):
+
+    def change_sprites(self, images2):
         self.sprites = images2
-
-
 
     def update(self, speed):
         """
