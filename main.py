@@ -48,6 +48,10 @@ while not finished:
                 player.move('left')
             elif event.key == pygame.K_RIGHT:
                 player.move('right')
+            elif event.key == pygame.K_SPACE:
+                player.change_floor('up', floors)  # TODO СДЕЛАТЬ МАССИВ ЭТАЖЕЙ (наверное)
+            elif event.ley == pygame.K_LSHIFT:
+                player.change_floor('down', floors)  # TODO СДЕЛАТЬ МАССИВ ЭТАЖЕЙ (я не знаю как вы будете это делать)
 
 
     player.update(0.25)

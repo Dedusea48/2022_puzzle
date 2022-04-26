@@ -116,3 +116,9 @@ class Player(FrontObj):
                 self.level.tiles[__x][__y].front_obj.x = __x
                 self.level.tiles[__x][__y].front_obj.y = __y
                 self.level.tiles[__x][__y].front_obj.check_floor(self.level)
+
+    def change_floor(self, direction, floors):
+        if direction == "up" and self.floor < len(floors) - 1:
+            self.floor += 1
+        elif direction == "down" and self.floor > 0:
+            self.floor -= 1
