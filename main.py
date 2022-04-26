@@ -12,6 +12,7 @@ HEIGHT = 600
 FPS = 30
 
 images = images.upload_images_player()
+box_img = pygame.image.load('box.jpg')
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
@@ -42,5 +43,8 @@ while not finished:
             elif event.key == pygame.K_LEFT:
                 player.move('left')
             elif event.key == pygame.K_RIGHT:
+
+
                 player.move('right')
+
     player.update(0.25)

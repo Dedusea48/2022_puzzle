@@ -19,14 +19,16 @@ class FrontObj:
 
 
 class Box(FrontObj):
-    def __init__(self, the_tile):
+    def __init__(self, the_tile, image):
         super().__init__(the_tile)
         self.name = "box"
         self.color = 'orange'
+        self.image = image
 
     def draw(self, x0, y0):
-        dr.rect(self.screen, self.color, [x0 + self.x * 40, y0 + self.y * 40,
-                                          40, 40])
+        rect = self.image.get_rect()
+        rect.center = (x0 + self.x * 40 , y0 + self.y * 40 )
+        self.screen.blit(self.image, rect)
 
     def check_floor(self, level):
         if level.tiles[self.x][self.y].back_obj.name == 'water':
@@ -59,6 +61,10 @@ class Player(FrontObj):
         rect = self.image.get_rect()
         rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
         self.screen.blit(self.image, rect)
+    def change_sprites(self,images2):
+        self.sprites = images2
+
+
 
     def update(self, speed):
         """
