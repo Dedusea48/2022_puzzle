@@ -1,5 +1,6 @@
 import pygame
 
+
 def upload_images_player():
     """
     функция загружает изображения игрока, когда он не движется, и возвращает список изображений
@@ -13,6 +14,7 @@ def upload_images_player():
 
     return sprites
 
+
 def upload_images_right():
     sprites = list([])
     sprites.append(pygame.image.load('r0.png'))
@@ -22,4 +24,3 @@ def upload_images_right():
     sprites.append(pygame.image.load('r4.png'))
 
     return sprites
-

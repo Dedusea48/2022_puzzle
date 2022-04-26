@@ -17,7 +17,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 finished = False
 level = classes.Level(10, 10, screen, 100, 100)
-player = front.Player(level.tiles[1][2], level)
+player = front.Player(level.tiles[1][2], level, images)
 level.tiles[1][2].front_obj = player
 
 level.tiles[3][2].front_obj = front.Box(level.tiles[3][2])
@@ -43,4 +43,4 @@ while not finished:
                 player.move('left')
             elif event.key == pygame.K_RIGHT:
                 player.move('right')
-    # player.update(0.25)
+    player.update(0.25)

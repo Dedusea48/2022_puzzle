@@ -34,8 +34,6 @@ class Box(FrontObj):
             level.tiles[self.x][self.y].back_obj = self
 
 
-
-
 class Wall(Box):
     def __init__(self, the_tile):
         super().__init__(the_tile)
@@ -49,14 +47,29 @@ class Player(FrontObj):
     Знает, как нарисовать себя.
     """
 
-    def __init__(self, the_tile, level):
+    def __init__(self, the_tile, level, images):
         super().__init__(the_tile)
         self.name = 'player'
         self.level = level
+        self.sprites = images
+        self.current_sprite = 0
+        self.image = self.sprites[self.current_sprite]
 
     def draw(self, x0, y0):
-        dr.rect(self.screen, 'yellow', [x0 + self.x * 40, y0 + self.y * 40,
-                                        40, 40])
+        rect = self.image.get_rect()
+        rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
+        self.screen.blit(self.image, rect)
+
+    def update(self, speed):
+        """
+        Функция меняет изображения игрока с заданной скоростью
+        :param speed: - скорость анимации
+        :return:
+        """
+        self.current_sprite += speed
+        if int(self.current_sprite) >= len(self.sprites):
+            self.current_sprite = 0
+        self.image = self.sprites[int(self.current_sprite)]
 
     def move(self, direction):
         _y = self.y
@@ -94,4 +107,3 @@ class Player(FrontObj):
                 self.level.tiles[__x][__y].front_obj.x = __x
                 self.level.tiles[__x][__y].front_obj.y = __y
                 self.level.tiles[__x][__y].front_obj.check_floor(self.level)
-
