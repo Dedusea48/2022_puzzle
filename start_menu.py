@@ -50,7 +50,7 @@ def start_the_game() -> None:
         clock.tick(FPS)
         keys = pygame.key.get_pressed()
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.K_ESCAPE:
                 finished = True
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
