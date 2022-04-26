@@ -11,7 +11,8 @@ WIDTH = 600
 HEIGHT = 600
 FPS = 30
 
-images = images.upload_images_player()
+standing = images.upload_images_player()
+right = images.upload_images_right()
 box_img = pygame.image.load('box.jpg')
 wall_img = pygame.image.load('wall.jpg')
 pygame.init()
@@ -19,7 +20,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 finished = False
 level = classes.Level(10, 10, screen, 100, 100)
-player = front.Player(level.tiles[1][2], level, images)
+player = front.Player(level.tiles[1][2], level, standing)
 level.tiles[1][2].front_obj = player
 
 level.tiles[3][2].front_obj = front.Box(level.tiles[3][2], box_img)
@@ -44,8 +45,7 @@ while not finished:
             elif event.key == pygame.K_LEFT:
                 player.move('left')
             elif event.key == pygame.K_RIGHT:
-
-
                 player.move('right')
+
 
     player.update(0.25)

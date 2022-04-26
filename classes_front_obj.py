@@ -62,8 +62,8 @@ class Player(FrontObj):
         rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
         self.screen.blit(self.image, rect)
 
-    def change_sprites(self, images2):
-        self.sprites = images2
+    def change_sprites(self, images):
+        self.sprites = images
 
     def update(self, speed):
         """
