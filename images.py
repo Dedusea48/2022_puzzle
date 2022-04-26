@@ -19,5 +19,7 @@ def upload_images_right():
     sprites.append(pygame.image.load('r1.png'))
     sprites.append(pygame.image.load('r2.png'))
     sprites.append(pygame.image.load('r3.png'))
+    sprites.append(pygame.image.load('r4.png'))
 
     return sprites
+
