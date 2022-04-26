@@ -21,6 +21,7 @@ class FrontObj:
 class Box(FrontObj):
     def __init__(self, the_tile, image):
         super().__init__(the_tile)
+        the_tile.front_obj = self
         self.name = "box"
         self.color = 'orange'
         self.image = image

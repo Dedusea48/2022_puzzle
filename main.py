@@ -13,6 +13,7 @@ FPS = 30
 
 standing = images.upload_images_player()
 right = images.upload_images_right()
+kick = images.upload_kick()
 box_img = pygame.image.load('box.jpg')
 wall_img = pygame.image.load('wall.jpg')
 pygame.init()
@@ -23,10 +24,10 @@ level = classes.Level(10, 10, screen, 100, 100)
 player = front.Player(level.tiles[1][2], level, standing)
 level.tiles[1][2].front_obj = player
 
-front.Box(level.tiles[3][2])
-front.Box(level.tiles[6][7])
+front.Box(level.tiles[3][2], box_img)
+front.Box(level.tiles[6][7], box_img)
 
-front.Wall(level.tiles[5][3])
+front.Wall(level.tiles[5][3], wall_img)
 
 back.Water(level.tiles[7][3])
 

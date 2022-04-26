@@ -25,3 +25,14 @@ def upload_images_right():
 
 
     return sprites
+
+def upload_kick():
+    sprites = list([])
+    sprites.append(pygame.image.load('k0.png'))
+    sprites.append(pygame.image.load('k1.png'))
+    sprites.append(pygame.image.load('k2.png'))
+    sprites.append(pygame.image.load('k3.png'))
+    sprites.append(pygame.image.load('k4.png'))
+    sprites.append(pygame.image.load('k5.png'))
+
+    return sprites
