@@ -1,5 +1,6 @@
 import classes
 import pygame
+import classes_front_obj as front
 # import classes_back_obj
 # import classes_front_obj
 # from PIL import Image, ImageSequence
@@ -16,8 +17,11 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 finished = False
 level = classes.Level(10, 10, screen, 100, 100)
-# player = classes.Player(1, 2, images)
-# level.tiles[1][2][1] = player
+player = front.Player(level.tiles[1][2], level)
+level.tiles[1][2].front_obj = player
+box = front.Box(level.tiles[3][2])
+level.tiles[3][2].front_obj = box
+
 
 while not finished:
     level.draw()
@@ -27,13 +31,13 @@ while not finished:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
-    #     elif event.type == pygame.KEYDOWN:
-    #         if event.key == pygame.K_UP:
-    #             player.step_up(level)
-    #         elif event.key == pygame.K_DOWN:
-    #             player.step_down(level)
-    #         elif event.key == pygame.K_LEFT:
-    #             player.step_left(level)
-    #         elif event.key == pygame.K_RIGHT:
-    #             player.step_right(level)
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                player.move('up')
+            elif event.key == pygame.K_DOWN:
+                player.move('down')
+            elif event.key == pygame.K_LEFT:
+                player.move('left')
+            elif event.key == pygame.K_RIGHT:
+                player.move('right')
     # player.update(0.25)

@@ -22,4 +22,5 @@ class Floor(BackObj):
 
 class Water(BackObj):
     def draw(self, x0, y0):
-        pass
+        dr.rect(self.screen, 'blue', [x0 + self.x * self.size, y0 + self.y * self.size,
+                                       self.size, self.size])
