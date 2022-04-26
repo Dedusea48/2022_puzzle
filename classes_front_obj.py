@@ -28,7 +28,7 @@ class Box(FrontObj):
 
     def draw(self, x0, y0):
         rect = self.image.get_rect()
-        rect.center = (x0 + self.x * 40 + 19, y0 + self.y * 40 + 20)
+        rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
         self.screen.blit(self.image, rect)
 
     def check_floor(self, level):
