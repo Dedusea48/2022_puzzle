@@ -19,15 +19,16 @@ class FrontObj:
 
 
 class Box(FrontObj):
-    def __init__(self, the_tile):
-        the_tile.front_obj = self
+    def __init__(self, the_tile, image):
         super().__init__(the_tile)
         self.name = "box"
         self.color = 'orange'
+        self.image = image
 
     def draw(self, x0, y0):
-        dr.rect(self.screen, self.color, [x0 + self.x * 40, y0 + self.y * 40,
-                                          40, 40])
+        rect = self.image.get_rect()
+        rect.center = (x0 + self.x * 40 + 19, y0 + self.y * 40 + 20)
+        self.screen.blit(self.image, rect)
 
     def check_floor(self, level):
         if level.tiles[self.x][self.y].back_obj.name == 'water':
@@ -35,12 +36,10 @@ class Box(FrontObj):
             level.tiles[self.x][self.y].back_obj = self
 
 
-
-
 class Wall(Box):
-    def __init__(self, the_tile):
+    def __init__(self, the_tile, image):
         the_tile.front_obj = self
-        super().__init__(the_tile)
+        super().__init__(the_tile, image)
         self.name = 'wall'
         self.color = 'gray'
 
@@ -55,6 +54,7 @@ class Player(FrontObj):
         the_tile.front_obj = self
         super().__init__(the_tile)
         self.name = 'player'
+        self.floor = 0
         self.level = level
         self.sprites = images
         self.current_sprite = 0
@@ -64,6 +64,9 @@ class Player(FrontObj):
         rect = self.image.get_rect()
         rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
         self.screen.blit(self.image, rect)
+
+    def change_sprites(self, images2):
+        self.sprites = images2
 
     def update(self, speed):
         """
@@ -81,7 +84,6 @@ class Player(FrontObj):
         _x = self.x
 
         if direction == 'up':
-
             _y -= 1
         if direction == 'down':
             _y += 1
