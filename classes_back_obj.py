@@ -29,6 +29,7 @@ class Floor(BackObj):
 
 class Water(BackObj):
     def __init__(self, the_tile):
+        the_tile.back_obj = self
         super().__init__(the_tile)
         self.name = 'water'
 

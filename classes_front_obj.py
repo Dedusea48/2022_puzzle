@@ -20,6 +20,7 @@ class FrontObj:
 
 class Box(FrontObj):
     def __init__(self, the_tile):
+        the_tile.front_obj = self
         super().__init__(the_tile)
         self.name = "box"
         self.color = 'orange'
@@ -38,6 +39,7 @@ class Box(FrontObj):
 
 class Wall(Box):
     def __init__(self, the_tile):
+        the_tile.front_obj = self
         super().__init__(the_tile)
         self.name = 'wall'
         self.color = 'gray'
@@ -50,6 +52,7 @@ class Player(FrontObj):
     """
 
     def __init__(self, the_tile, level, images):
+        the_tile.front_obj = self
         super().__init__(the_tile)
         self.name = 'player'
         self.level = level
@@ -78,6 +81,7 @@ class Player(FrontObj):
         _x = self.x
 
         if direction == 'up':
+
             _y -= 1
         if direction == 'down':
             _y += 1
