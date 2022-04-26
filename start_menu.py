@@ -50,10 +50,13 @@ def start_the_game() -> None:
         clock.tick(FPS)
         keys = pygame.key.get_pressed()
         for event in pygame.event.get():
-            if event.type == pygame.K_ESCAPE:
-                finished = True
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    finished = True
+                elif event.key == pygame.K_UP:
                     player.move('up')
                 elif event.key == pygame.K_DOWN:
                     player.move('down')
@@ -63,7 +66,7 @@ def start_the_game() -> None:
                     player.move('right')
                 elif event.key == pygame.K_SPACE:
                     player.change_floor('up', floors)  # TODO СДЕЛАТЬ МАССИВ ЭТАЖЕЙ (наверное)
-                elif event.ley == pygame.K_LSHIFT:
+                elif event.key == pygame.K_LSHIFT:
                     player.change_floor('down',
                                         floors)  # TODO СДЕЛАТЬ МАССИВ ЭТАЖЕЙ (я не знаю как вы будете это делать)
 
