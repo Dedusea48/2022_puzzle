@@ -36,3 +36,11 @@ def upload_kick():
     sprites.append(pygame.image.load('k5.png'))
 
     return sprites
+
+def box_images():
+    images = list([])
+    images.append(pygame.image.load('box.png'))
+    images.append(pygame.image.load('bridge.png'))
+
+    return images
+

@@ -38,9 +38,9 @@ class Box(FrontObj):
 
 
 class Wall(Box):
-    def __init__(self, the_tile, image):
+    def __init__(self, the_tile, images):
         the_tile.front_obj = self
-        super().__init__(the_tile, image)
+        super().__init__(the_tile, images)
         self.name = 'wall'
         self.color = 'gray'
 
