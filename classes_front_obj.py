@@ -19,12 +19,14 @@ class FrontObj:
 
 
 class Box(FrontObj):
-    def __init__(self, the_tile, image):
+    def __init__(self, the_tile, images):
         super().__init__(the_tile)
         the_tile.front_obj = self
         self.name = "box"
         self.color = 'orange'
-        self.image = image
+        self.images = images
+        self.image = self.images[0]
+
 
     def draw(self, x0, y0):
         rect = self.image.get_rect()
@@ -35,6 +37,7 @@ class Box(FrontObj):
         if level.tiles[self.x][self.y].back_obj.name == 'water':
             level.tiles[self.x][self.y].front_obj = None
             level.tiles[self.x][self.y].back_obj = self
+            self.image = self.images[1]
 
 
 class Wall(Box):
@@ -43,6 +46,8 @@ class Wall(Box):
         super().__init__(the_tile, images)
         self.name = 'wall'
         self.color = 'gray'
+
+
 
 
 class Player(FrontObj):

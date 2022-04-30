@@ -16,26 +16,36 @@ class BackObj:
 
 
 class Floor(BackObj):
-    def __init__(self, the_tile):
+    def __init__(self, the_tile, image):
         super().__init__(the_tile)
         self.name = 'floor'
+        self.image = image;
 
     def draw(self, x0, y0):
-        dr.rect(self.screen, 'white', [x0 + self.x * self.size, y0 + self.y * self.size,
-                                       self.size, self.size])
-        dr.rect(self.screen, 'black', [x0 + self.x * self.size, y0 + self.y * self.size,
-                                       self.size, self.size], width=1)
+        rect = self.image.get_rect()
+        rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
+        self.screen.blit(self.image, rect)
 
 
 class Water(BackObj):
-    def __init__(self, the_tile):
+    def __init__(self, the_tile, images):
         the_tile.back_obj = self
         super().__init__(the_tile)
         self.name = 'water'
+        self.current = 0
+        self.images = images
+        self.image = self.images[self.current]
 
     def draw(self, x0, y0):
-        dr.rect(self.screen, 'blue', [x0 + self.x * self.size, y0 + self.y * self.size,
-                                      self.size, self.size])
+        rect = self.image.get_rect()
+        rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
+        self.screen.blit(self.image, rect)
+
+    def update(self, speed):
+        self.current += speed
+        if int(self.current) >= len(self.images):
+            self.current = 0
+        self.image = self.images[int(self.current)]
 
 
 class Spring(BackObj):
@@ -58,14 +68,16 @@ class Spring(BackObj):
 
 
 class Ladder(BackObj):
-    def __init__(self, the_tile):
+    def __init__(self, the_tile, image):
         the_tile.back_obj = self
         super().__init__(the_tile)
         self.name = 'ladder'
+        self.image = image
 
     def draw(self, x0, y0):
-        dr.rect(self.screen, 'orange', [x0 + self.x * self.size, y0 + self.y * self.size,
-                                       self.size, self.size])
+        rect = self.image.get_rect()
+        rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
+        self.screen.blit(self.image, rect)
 
     def floor_up(self, player):
         player.change_floor('up')

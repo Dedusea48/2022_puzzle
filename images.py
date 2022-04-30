@@ -14,6 +14,20 @@ def upload_images_player():
 
     return sprites
 
+def upload_images_mirrored():
+    """
+    функция загружает изображения игрока, когда он не движется, и возвращает список изображений
+    :return: - список изображений
+    """
+    sprites = list([])
+    sprites.append(pygame.image.load('m0.png'))
+    sprites.append(pygame.image.load('m1.png'))
+    sprites.append(pygame.image.load('m2.png'))
+    sprites.append(pygame.image.load('m3.png'))
+
+    return sprites
+
+
 
 def upload_images_right():
     sprites = list([])
@@ -41,6 +55,16 @@ def box_images():
     images = list([])
     images.append(pygame.image.load('box.png'))
     images.append(pygame.image.load('bridge.png'))
+
+    return images
+
+
+
+def water_images():
+    images = list([])
+    images.append(pygame.image.load('w0.png'))
+    images.append(pygame.image.load('w1.png'))
+    images.append(pygame.image.load('w2.png'))
 
     return images
 
