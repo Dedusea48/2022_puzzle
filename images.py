@@ -51,6 +51,17 @@ def upload_kick():
 
     return sprites
 
+def upload_kick_left():
+    sprites = list([])
+    sprites.append(pygame.image.load('kl0.png'))
+    sprites.append(pygame.image.load('kl1.png'))
+    sprites.append(pygame.image.load('kl2.png'))
+    sprites.append(pygame.image.load('kl3.png'))
+    sprites.append(pygame.image.load('kl4.png'))
+    sprites.append(pygame.image.load('kl5.png'))
+
+    return sprites
+
 def box_images():
     images = list([])
     images.append(pygame.image.load('box.png'))
@@ -68,3 +79,15 @@ def water_images():
 
     return images
 
+def grass():
+
+    return pygame.image.load('Grass.jpg')
+
+def ladder():
+
+    return  pygame.image.load('ladder.png')
+
+def wall():
+    wall_image = list([])
+    wall_image.append(pygame.image.load('wall.png'))
+    return wall_image

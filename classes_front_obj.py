@@ -1,5 +1,5 @@
 import pygame.draw as dr
-
+import images
 
 def border_control(x, y, level):
     if 0 <= x < level.horizontal_side and 0 <= y < level.vertical_side and level.tiles[x][y].front_obj is None:
@@ -65,6 +65,9 @@ class Player(FrontObj):
         self.sprites = images
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
+        self.side = 'R'
+
+
 
     def draw(self, x0, y0):
         rect = self.image.get_rect()
@@ -74,6 +77,12 @@ class Player(FrontObj):
     def change_sprites(self, images):
         self.sprites = images
 
+    def to_left(self):
+        self.side = 'L'
+
+    def to_right(self):
+        self.side = 'R'
+
     def update(self, speed):
         """
         Функция меняет изображения игрока с заданной скоростью
@@ -82,8 +91,15 @@ class Player(FrontObj):
         """
         self.current_sprite += speed
         if int(self.current_sprite) >= len(self.sprites):
+            if self.side == 'R':
+                self.sprites = images.upload_images_player()
+            else:
+                self.sprites = images.upload_images_mirrored()
             self.current_sprite = 0
         self.image = self.sprites[int(self.current_sprite)]
+
+
+
 
     def move(self, direction):
         _y = self.y
@@ -103,12 +119,34 @@ class Player(FrontObj):
         elif 0 <= _x < self.level.horizontal_side and 0 <= _y < self.level.vertical_side:
             self.kick(_x, _y)
 
+
     def step(self, _x, _y):
         if self.level.tiles[_x][_y].back_obj.name != 'water':
             self.level.tiles[self.x][self.y].front_obj = None
             self.level.tiles[_x][_y].front_obj = self
             self.x = _x
             self.y = _y
+
+
+    def draw_kick(self, x):
+        if x > self.x :
+            self.sprites = images.upload_kick()
+        else:
+            self.sprites = images.upload_kick_left()
+
+
+    # def check(self):
+    #     # kick_list = images.upload_kick()
+    #     # flag = True
+    #     # for i in self.sprites:
+    #     #     for j in kick_list:
+    #     #         if j!= i:
+    #     #             flag = False
+    #     # if flag:
+    #     if int(self.current_sprite) >= len(self.sprites):
+    #         self.sprites = images.upload_images_player()
+
+
 
     def kick(self, _x, _y):
         if self.level.tiles[_x][_y].front_obj.name != 'wall':
@@ -121,6 +159,7 @@ class Player(FrontObj):
                 self.level.tiles[__x][__y].front_obj.x = __x
                 self.level.tiles[__x][__y].front_obj.y = __y
                 self.level.tiles[__x][__y].front_obj.check_floor(self.level)
+                self.draw_kick(_x)
 
     def change_floor(self, direction, floors):
         if direction == "up" and self.floor < len(floors) - 1:
