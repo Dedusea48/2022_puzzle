@@ -25,7 +25,7 @@ water_images = images.water_images()
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-finished = False
+finished = [False]
 level = classes.Level(10, 10, screen, 100, 100)
 player = front.Player(level.tiles[1][2], level, standing)
 level.tiles[1][2].front_obj = player
@@ -50,7 +50,7 @@ def game_process(is_finished, player):
     clock.tick(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            is_finished = True
+            is_finished[0] = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 player.move('up')
@@ -70,7 +70,7 @@ def game_process(is_finished, player):
     water_block1.update(0.1)
     water_block2.update(0.1)
 
-while not finished:
+while not finished[0]:
     game_process(finished, player)
 
     player.update(0.25)
