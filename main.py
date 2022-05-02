@@ -24,7 +24,7 @@ front.Wall(level.tiles[5][3], images.wall())
 
 water_block1 = back.Water(level.tiles[7][3], images.water_images())
 water_block2 = back.Water(level.tiles[7][4], images.water_images())
-back.Ladder(level.tiles[7][7], images.ladder())
+back.next_level_tile(level.tiles[7][7], images.ladder())
 level2 = classes.Level(10, 10, screen, 100, 100)
 
 FLOORS = (level, level2)
@@ -51,17 +51,11 @@ def game_process(is_finished, player):
                 player.change_sprites(images.upload_images_player())
                 player.move('right')
                 player.to_right()
-            elif event.key == pygame.K_SPACE:
-                player.change_floor('up', FLOORS)
-            elif event.key == pygame.K_LSHIFT:
-                player.change_floor('down', FLOORS)
 
     player.update(0.5)
     water_block1.update(0.2)
     water_block2.update(0.2)
 
+
 while not finished[0]:
-
     game_process(finished, player)
-
-

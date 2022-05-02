@@ -67,7 +67,7 @@ class Spring(BackObj):
             level.tiles[self.x][self.y].front_obj = None
 
 
-class Ladder(BackObj):
+class next_level_tile(BackObj):
     def __init__(self, the_tile, image):
         the_tile.back_obj = self
         super().__init__(the_tile)
@@ -78,9 +78,3 @@ class Ladder(BackObj):
         rect = self.image.get_rect()
         rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
         self.screen.blit(self.image, rect)
-
-    def floor_up(self, player):
-        player.change_floor('up')
-
-    def floor_down(self, player):
-        player.change_floor('down')
