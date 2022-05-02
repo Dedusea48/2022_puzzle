@@ -37,7 +37,8 @@ def game_process(is_finished, player):
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            is_finished[0] = True
+            pygame.quit()
+            exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 player.move('up')
@@ -51,11 +52,10 @@ def game_process(is_finished, player):
                 player.change_sprites(images.upload_images_player())
                 player.move('right')
                 player.to_right()
+            elif event.key == pygame.K_ESCAPE:
+                finished[0] = True
 
     player.update(0.5)
     water_block1.update(0.2)
     water_block2.update(0.2)
 
-
-while not finished[0]:
-    game_process(finished, player)
