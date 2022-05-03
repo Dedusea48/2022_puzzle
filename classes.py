@@ -51,20 +51,17 @@ class Level:
             for j in range(self.vertical_side):
                 self.tiles[i][j].draw(self.x0, self.y0)
 
-    def return_next_level_tile(self):
+    def return_obj(self, obj):
         for column in self.tiles:
             for tile in column:
-                if tile.return_back_obj().name == 'next_level_tile':
-                    return tile.back_obj
-
-    def return_player(self):
-        for column in self.tiles:
-            for tile in column:
-                if tile.front_obj and tile.return_front_obj().name == 'player':
-                    return tile.front_obj
+                if tile.return_back_obj() and tile.return_back_obj().name == obj:
+                    return tile.return_back_obj()
+                elif tile.return_front_obj() and tile.return_front_obj().name == obj:
+                    return tile.return_front_obj()
 
     def check_next_level(self):
-        return self.return_player().x == self.return_next_level_tile().x and self.return_player().y == self.return_next_level_tile().y
+        return self.return_obj('next_level_tile').x == self.return_obj('player').x and \
+               self.return_obj('next_level_tile').y == self.return_obj('player').y
 
 
 class Tile:

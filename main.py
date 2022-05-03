@@ -60,7 +60,6 @@ front.Box(level2.tiles[1][5], images.box_images())
 front.Box(level2.tiles[1][6], images.box_images())
 front.Box(level2.tiles[2][5], images.box_images())
 
-
 LEVELS = (level1, level2)
 cur_level = 0
 
@@ -76,26 +75,24 @@ def game_process(is_finished, cur_level):
             exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                LEVELS[cur_level].return_player().move('up')
+                LEVELS[cur_level].return_obj('player').move('up')
             elif event.key == pygame.K_DOWN:
-                LEVELS[cur_level].return_player().move('down')
+                LEVELS[cur_level].return_obj('player').move('down')
             elif event.key == pygame.K_LEFT:
-                LEVELS[cur_level].return_player().change_sprites(images.upload_images_mirrored())
-                LEVELS[cur_level].return_player().move('left')
-                LEVELS[cur_level].return_player().to_left()
+                LEVELS[cur_level].return_obj('player').change_sprites(images.upload_images_mirrored())
+                LEVELS[cur_level].return_obj('player').move('left')
+                LEVELS[cur_level].return_obj('player').to_left()
             elif event.key == pygame.K_RIGHT:
-                LEVELS[cur_level].return_player().change_sprites(images.upload_images_player())
-                LEVELS[cur_level].return_player().move('right')
-                LEVELS[cur_level].return_player().to_right()
+                LEVELS[cur_level].return_obj('player').change_sprites(images.upload_images_player())
+                LEVELS[cur_level].return_obj('player').move('right')
+                LEVELS[cur_level].return_obj('player').to_right()
             elif event.key == pygame.K_ESCAPE:
                 finished[0] = True
 
-    LEVELS[cur_level].return_player().update(0.5)
+    LEVELS[cur_level].return_obj('player').update(0.5)
     # FIXME должно работать для всех уровней
     # water_block1.update(0.2)
     # water_block2.update(0.2)
     if LEVELS[cur_level].check_next_level():
         cur_level += 1
     return cur_level
-
-
