@@ -1,5 +1,6 @@
 import classes_back_obj as back
 import pygame
+
 # Палитра
 RED = 0xFF0000
 BLUE = 0x0000FF
@@ -11,6 +12,7 @@ BLACK = (0, 0, 0)
 WHITE = 0xFFFFFF
 GREY = 0x7D7D7D
 grass = pygame.image.load('Grass.jpg')
+
 
 class Level:
     """
@@ -49,6 +51,21 @@ class Level:
             for j in range(self.vertical_side):
                 self.tiles[i][j].draw(self.x0, self.y0)
 
+    def return_next_level_tile(self):
+        for column in self.tiles:
+            for tile in column:
+                if tile.return_back_obj().name == 'next_level_tile':
+                    return tile.back_obj
+
+    def return_player(self):
+        for column in self.tiles:
+            for tile in column:
+                if tile.front_obj and tile.return_front_obj().name == 'player':
+                    return tile.front_obj
+
+    def check_next_level(self):
+        return self.return_player().x == self.return_next_level_tile().x and self.return_player().y == self.return_next_level_tile().y
+
 
 class Tile:
     """
@@ -68,3 +85,9 @@ class Tile:
             self.back_obj.draw(x0, y0)
         if self.front_obj is not None:
             self.front_obj.draw(x0, y0)
+
+    def return_back_obj(self):
+        return self.back_obj
+
+    def return_front_obj(self):
+        return self.front_obj

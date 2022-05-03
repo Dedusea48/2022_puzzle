@@ -7,6 +7,7 @@ class BackObj:
         self.y = the_tile.y
         self.size = the_tile.size
         self.screen = the_tile.screen
+        self.name = None
 
     def draw(self, x0, y0):
         pass
@@ -19,7 +20,7 @@ class Floor(BackObj):
     def __init__(self, the_tile, image):
         super().__init__(the_tile)
         self.name = 'floor'
-        self.image = image;
+        self.image = image
 
     def draw(self, x0, y0):
         rect = self.image.get_rect()
@@ -71,10 +72,13 @@ class next_level_tile(BackObj):
     def __init__(self, the_tile, image):
         the_tile.back_obj = self
         super().__init__(the_tile)
-        self.name = 'ladder'
+        self.name = 'next_level_tile'
         self.image = image
 
     def draw(self, x0, y0):
         rect = self.image.get_rect()
         rect.center = (x0 + self.x * 40 + 20, y0 + self.y * 40 + 20)
         self.screen.blit(self.image, rect)
+
+    # def check_player(self, player):
+    #     return self.x == player.x and self.y == player.y
