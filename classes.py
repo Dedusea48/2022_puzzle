@@ -11,7 +11,7 @@ CYAN = 0x00FFCC
 BLACK = (0, 0, 0)
 WHITE = 0xFFFFFF
 GREY = 0x7D7D7D
-grass = pygame.image.load('Grass.jpg')
+grass = pygame.image.load('image/Grass.jpg')
 
 
 class Level:
