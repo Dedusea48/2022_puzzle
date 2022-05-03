@@ -14,24 +14,52 @@ clock = pygame.time.Clock()
 finished = [False]
 
 # LEVEL 1
-level1 = classes.Level(10, 10, screen, 100, 100)
-player = front.Player(level1.tiles[1][2], level1, images.upload_images_player())
-exit1 = back.next_level_tile(level1.tiles[7][7], images.ladder())
+level1 = classes.Level(5, 5, screen, 100, 100)
+front.Player(level1.tiles[0][0], level1, images.upload_images_player())
+back.next_level_tile(level1.tiles[4][0], images.ladder())
 
-front.Box(level1.tiles[3][2], images.box_images())
-front.Box(level1.tiles[6][7], images.box_images())
+front.Box(level1.tiles[2][1], images.box_images())
+front.Box(level1.tiles[1][2], images.box_images())
 
-front.Wall(level1.tiles[5][3], images.wall())
+front.Wall(level1.tiles[0][1], images.wall())
+front.Wall(level1.tiles[1][1], images.wall())
+front.Wall(level1.tiles[3][0], images.wall())
+front.Wall(level1.tiles[3][1], images.wall())
+front.Wall(level1.tiles[1][3], images.wall())
 
-water_block1 = back.Water(level1.tiles[7][3], images.water_images())
-water_block2 = back.Water(level1.tiles[7][4], images.water_images())
+back.Water(level1.tiles[4][1], images.water_images())
+back.Water(level1.tiles[4][2], images.water_images())
 
 # LEVEL 2
-level2 = classes.Level(10, 10, screen, 100, 100)
-player2 = front.Player(level2.tiles[4][4], level2, images.upload_images_player())
-exit2 = back.next_level_tile(level2.tiles[3][2], images.ladder())
+level2 = classes.Level(6, 8, screen, 100, 100)
+front.Player(level2.tiles[0][7], level2, images.upload_images_player())
+back.next_level_tile(level2.tiles[5][7], images.ladder())
 
-front.Box(level2.tiles[5][5], images.box_images())
+front.Wall(level2.tiles[4][2], images.wall())
+front.Wall(level2.tiles[5][2], images.wall())
+front.Wall(level2.tiles[3][5], images.wall())
+front.Wall(level2.tiles[3][6], images.wall())
+front.Wall(level2.tiles[3][7], images.wall())
+
+back.Water(level2.tiles[0][3], images.water_images())
+back.Water(level2.tiles[1][3], images.water_images())
+back.Water(level2.tiles[2][3], images.water_images())
+back.Water(level2.tiles[3][3], images.water_images())
+back.Water(level2.tiles[4][3], images.water_images())
+back.Water(level2.tiles[5][3], images.water_images())
+back.Water(level2.tiles[0][4], images.water_images())
+back.Water(level2.tiles[1][4], images.water_images())
+back.Water(level2.tiles[2][4], images.water_images())
+back.Water(level2.tiles[3][4], images.water_images())
+back.Water(level2.tiles[4][4], images.water_images())
+back.Water(level2.tiles[5][4], images.water_images())
+
+front.Box(level2.tiles[1][2], images.box_images())
+front.Box(level2.tiles[4][1], images.box_images())
+front.Box(level2.tiles[1][5], images.box_images())
+front.Box(level2.tiles[1][6], images.box_images())
+front.Box(level2.tiles[2][5], images.box_images())
+
 
 LEVELS = (level1, level2)
 cur_level = 0
