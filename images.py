@@ -7,10 +7,10 @@ def upload_images_player():
     :return: - список изображений
     """
     sprites = list([])
-    sprites.append(pygame.image.load('tile000.png'))
-    sprites.append(pygame.image.load('tile001.png'))
-    sprites.append(pygame.image.load('tile002.png'))
-    sprites.append(pygame.image.load('tile003.png'))
+    sprites.append(pygame.image.load('image/tile000.png'))
+    sprites.append(pygame.image.load('image/tile001.png'))
+    sprites.append(pygame.image.load('image/tile002.png'))
+    sprites.append(pygame.image.load('image/tile003.png'))
 
     return sprites
 
@@ -20,10 +20,10 @@ def upload_images_mirrored():
     :return: - список изображений
     """
     sprites = list([])
-    sprites.append(pygame.image.load('m0.png'))
-    sprites.append(pygame.image.load('m1.png'))
-    sprites.append(pygame.image.load('m2.png'))
-    sprites.append(pygame.image.load('m3.png'))
+    sprites.append(pygame.image.load('image/m0.png'))
+    sprites.append(pygame.image.load('image/m1.png'))
+    sprites.append(pygame.image.load('image/m2.png'))
+    sprites.append(pygame.image.load('image/m3.png'))
 
     return sprites
 
@@ -31,41 +31,41 @@ def upload_images_mirrored():
 
 def upload_images_right():
     sprites = list([])
-    sprites.append(pygame.image.load('r0.png'))
-    sprites.append(pygame.image.load('r1.png'))
-    sprites.append(pygame.image.load('r2.png'))
-    sprites.append(pygame.image.load('r3.png'))
-    sprites.append(pygame.image.load('r4.png'))
+    sprites.append(pygame.image.load('image/r0.png'))
+    sprites.append(pygame.image.load('image/r1.png'))
+    sprites.append(pygame.image.load('image/r2.png'))
+    sprites.append(pygame.image.load('image/r3.png'))
+    sprites.append(pygame.image.load('image/r4.png'))
 
 
     return sprites
 
 def upload_kick():
     sprites = list([])
-    sprites.append(pygame.image.load('k0.png'))
-    sprites.append(pygame.image.load('k1.png'))
-    sprites.append(pygame.image.load('k2.png'))
-    sprites.append(pygame.image.load('k3.png'))
-    sprites.append(pygame.image.load('k4.png'))
-    sprites.append(pygame.image.load('k5.png'))
+    sprites.append(pygame.image.load('image/k0.png'))
+    sprites.append(pygame.image.load('image/k1.png'))
+    sprites.append(pygame.image.load('image/k2.png'))
+    sprites.append(pygame.image.load('image/k3.png'))
+    sprites.append(pygame.image.load('image/k4.png'))
+    sprites.append(pygame.image.load('image/k5.png'))
 
     return sprites
 
 def upload_kick_left():
     sprites = list([])
-    sprites.append(pygame.image.load('kl0.png'))
-    sprites.append(pygame.image.load('kl1.png'))
-    sprites.append(pygame.image.load('kl2.png'))
-    sprites.append(pygame.image.load('kl3.png'))
-    sprites.append(pygame.image.load('kl4.png'))
-    sprites.append(pygame.image.load('kl5.png'))
+    sprites.append(pygame.image.load('image/kl0.png'))
+    sprites.append(pygame.image.load('image/kl1.png'))
+    sprites.append(pygame.image.load('image/kl2.png'))
+    sprites.append(pygame.image.load('image/kl3.png'))
+    sprites.append(pygame.image.load('image/kl4.png'))
+    sprites.append(pygame.image.load('image/kl5.png'))
 
     return sprites
 
 def box_images():
     images = list([])
-    images.append(pygame.image.load('box.png'))
-    images.append(pygame.image.load('bridge.png'))
+    images.append(pygame.image.load('image/box.png'))
+    images.append(pygame.image.load('image/bridge.png'))
 
     return images
 
@@ -73,21 +73,21 @@ def box_images():
 
 def water_images():
     images = list([])
-    images.append(pygame.image.load('w0.png'))
-    images.append(pygame.image.load('w1.png'))
-    images.append(pygame.image.load('w2.png'))
+    images.append(pygame.image.load('image/w0.png'))
+    images.append(pygame.image.load('image/w1.png'))
+    images.append(pygame.image.load('image/w2.png'))
 
     return images
 
 def grass():
 
-    return pygame.image.load('Grass.jpg')
+    return pygame.image.load('image/Grass.jpg')
 
 def ladder():
 
-    return  pygame.image.load('ladder.png')
+    return  pygame.image.load('image/ladder.png')
 
 def wall():
     wall_image = list([])
-    wall_image.append(pygame.image.load('wall.png'))
+    wall_image.append(pygame.image.load('image/wall.png'))
     return wall_image

@@ -72,7 +72,8 @@ def game_process(is_finished, cur_level):
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            is_finished[0] = True
+            pygame.quit()
+            exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 LEVELS[cur_level].return_player().move('up')
@@ -86,6 +87,8 @@ def game_process(is_finished, cur_level):
                 LEVELS[cur_level].return_player().change_sprites(images.upload_images_player())
                 LEVELS[cur_level].return_player().move('right')
                 LEVELS[cur_level].return_player().to_right()
+            elif event.key == pygame.K_ESCAPE:
+                finished[0] = True
 
     LEVELS[cur_level].return_player().update(0.5)
     # FIXME должно работать для всех уровней
@@ -96,5 +99,3 @@ def game_process(is_finished, cur_level):
     return cur_level
 
 
-while not finished[0]:
-    cur_level = game_process(finished, cur_level)
