@@ -60,7 +60,6 @@ front.Box(level2.tiles[1][5], images.box_images())
 front.Box(level2.tiles[1][6], images.box_images())
 front.Box(level2.tiles[2][5], images.box_images())
 
-
 LEVELS = (level1, level2)
 cur_level = 0
 
@@ -97,5 +96,3 @@ def game_process(is_finished, cur_level):
     if LEVELS[cur_level].check_next_level():
         cur_level += 1
     return cur_level
-
-
