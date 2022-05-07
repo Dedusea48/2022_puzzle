@@ -1,15 +1,9 @@
-import pygame.draw as dr
-
-
 class BackObj:
     def __init__(self, screen):
         self.screen = screen
 
     def draw(self, x, y):
         pass
-
-    # def check_up(self, level):
-    #     pass
 
 
 class Floor(BackObj):
@@ -61,15 +55,14 @@ class Water(BackObj):
 #             level.tiles[self.x][self.y].front_obj = None
 
 
-class next_level_tile(BackObj):
-    def __init__(self, screen, image):
+class NextLevelTile(BackObj):
+    def __init__(self, screen, x, y, image):
         super().__init__(screen)
+        self.x = x
+        self.y = y
         self.image = image
 
     def draw(self, x, y):
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
         self.screen.blit(self.image, rect)
-
-    # def check_player(self, player):
-    #     return self.x == player.x and self.y == player.y
