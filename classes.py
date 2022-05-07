@@ -3,6 +3,7 @@
 """
 
 import classes_back_obj as back
+import classes_front_obj as front
 import pygame
 
 # Палитра
@@ -27,13 +28,13 @@ class Level:
     Уровень самостоятельно организовывает свой пол из класса Floor.
     """
 
-    def __init__(self, horizontal_side, vertical_side, screen, x0, y0):
+    def __init__(self, screen, x0, y0, horizontal_side, vertical_side, player, finish):
         """
         Создает уровень, заполняя каждую клекту объектом Floor
         :param horizontal_side: кол-во клеток по горизонтали
         :param vertical_side: кол-во клеток по вертикали
         :param screen: экран
-        :param x0: x-координата верхнего левого угла уровня
+        :param x0: x-координата верхнего левого угла уровн
         :param y0: y-координата верхнего левого угла уровня
         """
         self.screen = screen
@@ -42,15 +43,17 @@ class Level:
 
         self.vertical_side = vertical_side
         self.horizontal_side = horizontal_side
-        self.colors = [GREEN, GREY]
+        self.size = 40
         self.tiles = []
+
+        self.player = player
+        self.finish = finish
 
         for i in range(horizontal_side):
             column = []
             for j in range(vertical_side):
-                tile = Tile(i, j, self.screen)
-                floor = back.Floor(tile, grass)
-                tile.back_obj = floor
+                floor = back.Floor(self.screen, grass)
+                tile = Tile(None, floor)
                 column.append(tile)
             self.tiles.append(column)
 
@@ -60,28 +63,80 @@ class Level:
         """
         for i in range(self.horizontal_side):
             for j in range(self.vertical_side):
-                self.tiles[i][j].draw(self.x0, self.y0)
+                if self.tiles[i][j].back_obj is not None:
+                    self.tiles[i][j].back_obj.draw(self.x0 + i * self.size, self.y0 + j * self.size)
 
-    def return_obj(self, obj):
-        """
-        Возвращает объект на уровне с названием obj
-        :param obj: название объекта
-        :return: объект
-        """
-        for column in self.tiles:
-            for tile in column:
-                if tile.return_back_obj() and tile.return_back_obj().name == obj:
-                    return tile.return_back_obj()
-                elif tile.return_front_obj() and tile.return_front_obj().name == obj:
-                    return tile.return_front_obj()
+        for i in range(self.horizontal_side):
+            for j in range(self.vertical_side):
+                if self.tiles[i][j].front_obj is not None:
+                    self.tiles[i][j].front_obj.draw(self.x0 + i * self.size, self.y0 + j * self.size)
 
-    def check_next_level(self):
-        """
-        Проверяет, находится ли игрок на клетке финиша
-        :return: True или False
-        """
-        return self.return_obj('next_level_tile').x == self.return_obj('player').x and \
-               self.return_obj('next_level_tile').y == self.return_obj('player').y
+    def player_move(self, direction):
+        y = self.player.y
+        x = self.player.x
+        if direction == 'up':
+            y -= 1
+        if direction == 'down':
+            y += 1
+        if direction == 'left':
+            x -= 1
+        if direction == 'right':
+            x += 1
+
+        if 0 <= x < self.horizontal_side and 0 <= y < self.vertical_side:
+
+            if self.tiles[x][y].front_obj is not None:
+                self.player_kick(x, y)
+            else:
+                self.player_step(x, y)
+
+    def player_kick(self, x, y):
+        if not isinstance(self.tiles[x][y].front_obj, front.Wall):
+            _x = x + (x - self.player.x)
+            _y = y + (y - self.player.y)
+
+            if (0 <= _x < self.horizontal_side and
+                    0 <= _y < self.vertical_side and
+                    self.tiles[_x][_y].front_obj is None):
+                self.tiles[_x][_y].front_obj = self.tiles[x][y].front_obj
+                self.tiles[x][y].front_obj = None
+                self.check_interaction()
+
+    def player_step(self, x, y):
+        if not isinstance(self.tiles[x][y].back_obj, back.Water):
+            self.tiles[self.player.x][self.player.y].front_obj = None
+            self.player.x = x
+            self.player.y = y
+            self.tiles[self.player.x][self.player.y].front_obj = self.player
+
+    def check_interaction(self):
+        for i in range(self.horizontal_side):
+            for j in range(self.vertical_side):
+                if (isinstance(self.tiles[i][j].back_obj, back.Water) and
+                        isinstance(self.tiles[i][j].front_obj, front.Box)):
+                    self.tiles[i][j].back_obj = self.tiles[i][j].front_obj
+                    self.tiles[i][j].front_obj = None
+
+    # def return_obj(self, obj):
+    #     """
+    #     Возвращает объект на уровне с названием obj
+    #     :param obj: название объекта
+    #     :return: объект
+    #     """
+    #     for column in self.tiles:
+    #         for tile in column:
+    #             if tile.return_back_obj() and tile.return_back_obj().name == obj:
+    #                 return tile.return_back_obj()
+    #             elif tile.return_front_obj() and tile.return_front_obj().name == obj:
+    #                 return tile.return_front_obj()
+    #
+    # def check_next_level(self):
+    #     """
+    #     Проверяет, находится ли игрок на клетке финиша
+    #     :return: True или False
+    #     """
+    #     return self.return_obj('next_level_tile').x == self.return_obj('player').x and \
+    #            self.return_obj('next_level_tile').y == self.return_obj('player').y
 
 
 class Tile:
@@ -89,37 +144,32 @@ class Tile:
     Игровая единица площади, которая содержит задние объекты (BackObj) и верхние (FrontObj).
     """
 
-    def __init__(self, x, y, screen):
+    def __init__(self, front_obj, back_obj):
         """
         Создает клетку
-        :param x: x-координата клетки
-        :param y: y-координата клетки
-        :param screen: экран
-        """
-        self.x = x
-        self.y = y
-        self.back_obj = None
-        self.front_obj = None
-        self.size = 40
-        self.screen = screen
 
-    def draw(self, x0, y0):
-        """Рисует клетку, то есть все объекты на клетке"""
-        if self.back_obj is not None:
-            self.back_obj.draw(x0, y0)
-        if self.front_obj is not None:
-            self.front_obj.draw(x0, y0)
+        """
+        self.back_obj = back_obj
+        self.front_obj = front_obj
+        # self.size = 40
 
-    def return_back_obj(self):
-        """
-        Возвращает задний объект на клетке
-        :return: задний объект
-        """
-        return self.back_obj
+    # def draw(self, x, y):
+    #     """Рисует клетку, то есть все объекты на клетке"""
+    #     if self.back_obj is not None:
+    #         self.back_obj.draw(x, y)
+    #     if self.front_obj is not None:
+    #         self.front_obj.draw(x, y)
 
-    def return_front_obj(self):
-        """
-        Возвращает передний объект на клетке
-        :return: передний объектч
-        """
-        return self.front_obj
+    # def return_back_obj(self):
+    #     """
+    #     Возвращает задний объект на клетке
+    #     :return: задний объект
+    #     """
+    #     return self.back_obj
+    #
+    # def return_front_obj(self):
+    #     """
+    #     Возвращает передний объект на клетке
+    #     :return: передний объектч
+    #     """
+    #     return self.front_obj
