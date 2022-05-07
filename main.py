@@ -65,6 +65,7 @@ cur_level = 0
 
 
 def game_process(is_finished, cur_level):
+    """"""
     LEVELS[cur_level].draw()
     pygame.display.update()
     clock.tick(FPS)
