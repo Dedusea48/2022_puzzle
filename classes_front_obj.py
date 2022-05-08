@@ -2,28 +2,24 @@ import images
 
 
 class FrontObj:
-    def __init__(self, screen):
-        self.screen = screen
-
-    def draw(self, x0, y0):
+    def draw(self, screen, x0, y0):
         pass
 
 
 class Box(FrontObj):
-    def __init__(self, screen, images):
-        super().__init__(screen)
+    def __init__(self, images):
         self.images = images
         self.image = self.images[0]
 
-    def draw(self, x, y):
+    def draw(self, screen, x, y):
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
-        self.screen.blit(self.image, rect)
+        screen.blit(self.image, rect)
 
 
 class Wall(Box):
-    def __init__(self, screen, images):
-        super().__init__(screen, images)
+    def __init__(self, images):
+        super().__init__(images)
 
 
 class Player(FrontObj):
@@ -32,8 +28,7 @@ class Player(FrontObj):
     Знает, как нарисовать себя.
     """
 
-    def __init__(self, screen, x, y, images):
-        super().__init__(screen)
+    def __init__(self, images, x=0, y=0):
         self.x = x
         self.y = y
         self.sprites = images
@@ -41,10 +36,10 @@ class Player(FrontObj):
         self.image = self.sprites[self.current_sprite]
         self.side = 'R'
 
-    def draw(self, x, y):
+    def draw(self, screen, x, y):
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
-        self.screen.blit(self.image, rect)
+        screen.blit(self.image, rect)
 
     def change_sprites(self, images):
         self.sprites = images

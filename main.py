@@ -1,7 +1,5 @@
-import classes
 import pygame
-import classes_front_obj as front
-import classes_back_obj as back
+import levels
 import images
 
 WIDTH = 600
@@ -13,80 +11,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 finished = [False]
 
-# LEVEL 1
-
-player = front.Player(screen, 0, 0, images.upload_images_player())
-nlt = back.NextLevelTile(screen, 4, 0, images.ladder())
-level1 = classes.Level(screen, 100, 100, 5, 5)
-level1.tiles[0][0].front_obj = level1.player = player
-level1.tiles[4][0].back_obj = level1.finish = nlt
-level1.tiles[2][1].front_obj = front.Box(screen, images.box_images())
-level1.tiles[1][2].front_obj = front.Box(screen, images.box_images())
-
-level1.tiles[0][1].front_obj = front.Wall(screen, images.wall())
-level1.tiles[1][1].front_obj = front.Wall(screen, images.wall())
-level1.tiles[3][0].front_obj = front.Wall(screen, images.wall())
-level1.tiles[3][1].front_obj = front.Wall(screen, images.wall())
-level1.tiles[1][3].front_obj = front.Wall(screen, images.wall())
-
-level1.tiles[4][1].back_obj = back.Water(screen, images.water_images())
-level1.tiles[4][2].back_obj = back.Water(screen, images.water_images())
-
-# LEVEL 2
-level2 = classes.Level(screen, 100, 100, 6, 8)
-level2.tiles[0][7].front_obj = level2.player = front.Player(screen, 0, 7, images.upload_images_player())
-level2.tiles[5][7].back_obj = level2.finish = back.NextLevelTile(screen, 5, 7, images.ladder())
-# front.Player(level2.tiles[0][7], level2, images.upload_images_player())
-# back.next_level_tile(level2.tiles[5][7], images.ladder())
-
-level2.tiles[4][2].front_obj = front.Wall(screen, images.wall())
-level2.tiles[5][2].front_obj = front.Wall(screen, images.wall())
-level2.tiles[3][5].front_obj = front.Wall(screen, images.wall())
-level2.tiles[3][6].front_obj = front.Wall(screen, images.wall())
-level2.tiles[3][7].front_obj = front.Wall(screen, images.wall())
-# front.Wall(level2.tiles[4][2], images.wall())
-# front.Wall(level2.tiles[5][2], images.wall())
-# front.Wall(level2.tiles[3][5], images.wall())
-# front.Wall(level2.tiles[3][6], images.wall())
-# front.Wall(level2.tiles[3][7], images.wall())
-
-level2.tiles[0][3].back_obj = back.Water(screen, images.water_images())
-level2.tiles[1][3].back_obj = back.Water(screen, images.water_images())
-level2.tiles[2][3].back_obj = back.Water(screen, images.water_images())
-level2.tiles[3][3].back_obj = back.Water(screen, images.water_images())
-level2.tiles[4][3].back_obj = back.Water(screen, images.water_images())
-level2.tiles[5][3].back_obj = back.Water(screen, images.water_images())
-level2.tiles[0][4].back_obj = back.Water(screen, images.water_images())
-level2.tiles[1][4].back_obj = back.Water(screen, images.water_images())
-level2.tiles[2][4].back_obj = back.Water(screen, images.water_images())
-level2.tiles[3][4].back_obj = back.Water(screen, images.water_images())
-level2.tiles[4][4].back_obj = back.Water(screen, images.water_images())
-level2.tiles[5][4].back_obj = back.Water(screen, images.water_images())
-# back.Water(level2.tiles[0][3], images.water_images())
-# back.Water(level2.tiles[1][3], images.water_images())
-# back.Water(level2.tiles[2][3], images.water_images())
-# back.Water(level2.tiles[3][3], images.water_images())
-# back.Water(level2.tiles[4][3], images.water_images())
-# back.Water(level2.tiles[5][3], images.water_images())
-# back.Water(level2.tiles[0][4], images.water_images())
-# back.Water(level2.tiles[1][4], images.water_images())
-# back.Water(level2.tiles[2][4], images.water_images())
-# back.Water(level2.tiles[3][4], images.water_images())
-# back.Water(level2.tiles[4][4], images.water_images())
-# back.Water(level2.tiles[5][4], images.water_images())
-
-level2.tiles[1][2].front_obj = front.Box(screen, images.box_images())
-level2.tiles[4][1].front_obj = front.Box(screen, images.box_images())
-level2.tiles[1][5].front_obj = front.Box(screen, images.box_images())
-level2.tiles[1][6].front_obj = front.Box(screen, images.box_images())
-level2.tiles[2][5].front_obj = front.Box(screen, images.box_images())
-# front.Box(level2.tiles[1][2], images.box_images())
-# front.Box(level2.tiles[4][1], images.box_images())
-# front.Box(level2.tiles[1][5], images.box_images())
-# front.Box(level2.tiles[1][6], images.box_images())
-# front.Box(level2.tiles[2][5], images.box_images())
-
-LEVELS = (level1, level2)
+LEVELS = (levels.level1(screen), levels.level2(screen))
 cur_level = 0
 
 
@@ -118,9 +43,7 @@ def game_process(is_finished, cur_level):
                 finished[0] = True
 
     LEVELS[cur_level].player.update(0.5)
-    # FIXME должно работать для всех уровней
-    # water_block1.update(0.2)
-    # water_block2.update(0.2)
+    LEVELS[cur_level].check_interaction()
     if LEVELS[cur_level].completed:
         cur_level += 1
     return cur_level

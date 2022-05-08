@@ -1,33 +1,28 @@
 class BackObj:
-    def __init__(self, screen):
-        self.screen = screen
-
-    def draw(self, x, y):
+    def draw(self, screen, x, y):
         pass
 
 
 class Floor(BackObj):
-    def __init__(self, screen, image):
-        super().__init__(screen)
+    def __init__(self, image):
         self.image = image
 
-    def draw(self, x, y):
+    def draw(self, screen, x, y):
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
-        self.screen.blit(self.image, rect)
+        screen.blit(self.image, rect)
 
 
 class Water(BackObj):
-    def __init__(self, screen, images):
-        super().__init__(screen)
+    def __init__(self, images):
         self.current = 0
         self.images = images
         self.image = self.images[self.current]
 
-    def draw(self, x, y):
+    def draw(self, screen, x, y):
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
-        self.screen.blit(self.image, rect)
+        screen.blit(self.image, rect)
 
     def update(self, speed):
         self.current += speed
@@ -56,13 +51,12 @@ class Water(BackObj):
 
 
 class NextLevelTile(BackObj):
-    def __init__(self, screen, x, y, image):
-        super().__init__(screen)
+    def __init__(self, image, x=0, y=0):
         self.x = x
         self.y = y
         self.image = image
 
-    def draw(self, x, y):
+    def draw(self, screen, x, y):
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
-        self.screen.blit(self.image, rect)
+        screen.blit(self.image, rect)

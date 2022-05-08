@@ -14,6 +14,7 @@ def upload_images_player():
 
     return sprites
 
+
 def upload_images_mirrored():
     """
     функция загружает изображения игрока, когда он не движется, и возвращает список изображений
@@ -28,7 +29,6 @@ def upload_images_mirrored():
     return sprites
 
 
-
 def upload_images_right():
     sprites = list([])
     sprites.append(pygame.image.load('image/r0.png'))
@@ -37,8 +37,8 @@ def upload_images_right():
     sprites.append(pygame.image.load('image/r3.png'))
     sprites.append(pygame.image.load('image/r4.png'))
 
-
     return sprites
+
 
 def upload_kick():
     sprites = list([])
@@ -51,6 +51,7 @@ def upload_kick():
 
     return sprites
 
+
 def upload_kick_left():
     sprites = list([])
     sprites.append(pygame.image.load('image/kl0.png'))
@@ -62,13 +63,13 @@ def upload_kick_left():
 
     return sprites
 
+
 def box_images():
     images = list([])
     images.append(pygame.image.load('image/box.png'))
     images.append(pygame.image.load('image/bridge.png'))
 
     return images
-
 
 
 def water_images():
@@ -79,13 +80,14 @@ def water_images():
 
     return images
 
-def grass():
 
+def grass():
     return pygame.image.load('image/Grass.jpg')
 
-def ladder():
 
-    return  pygame.image.load('image/ladder.png')
+def ladder():
+    return pygame.image.load('image/ladder.png')
+
 
 def wall():
     wall_image = list([])
