@@ -3,6 +3,7 @@ import pygame_menu
 from pygame_menu.examples import create_example_window
 
 from typing import Tuple, Any
+
 surface = create_example_window('puzzle', (600, 400))
 
 
@@ -44,4 +45,3 @@ menu.add.button('Quit', quit)
 
 if __name__ == '__main__':
     menu.mainloop(surface)
-
