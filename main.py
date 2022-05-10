@@ -11,8 +11,8 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 finished = [False]
 
-LEVELS = (levels.level1(screen), levels.level2(screen))
-cur_level = 0
+LEVELS = (levels.level1(screen), levels.level2(screen), levels.level3(screen))
+cur_level = 2
 
 
 def game_process(is_finished, cur_level):

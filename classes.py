@@ -2,8 +2,8 @@
 Модуль, в котором содержатся классы Level и Tile
 """
 
-import classes_back_obj as back
-import classes_front_obj as front
+import classes_bottom_obj as bottom
+import classes_top_obj as top
 import pygame
 
 grass = pygame.image.load('image/Grass.jpg')
@@ -13,9 +13,9 @@ class Level:
     """
     Создаёт игровой клеточный уровень, в котором будут находится объекты.
     Уровень состоит из клеток. Каждая клетка состоит из двух частей:
-    back_obj(то, на чём стоят) и front_obj(то, что стоит на back_obj).
+    bottom_obj(то, на чём стоят) и top_obj(то, что стоит на back_obj).
     Чтобы что-то извлечь из платформы, нужно указать координаты клетки - x и y, потом через точку указать часть клетки.
-    Например Platform.squares[x][y].back_obj (извлечение нижней части клетки с координатами x и y)
+    Например Platform.squares[x][y].bottom_obj (извлечение нижней части клетки с координатами x и y)
     Уровень самостоятельно организовывает свой пол из класса Floor.
     """
 
@@ -44,7 +44,7 @@ class Level:
         for i in range(horizontal_side):
             column = []
             for j in range(vertical_side):
-                floor = back.Floor(grass)
+                floor = bottom.Floor(grass)
                 tile = Tile(None, floor)
                 column.append(tile)
             self.tiles.append(column)
@@ -57,7 +57,7 @@ class Level:
         :param y: координата y игрока на поле
         :return:
         """
-        self.tiles[x][y].front_obj = _player
+        self.tiles[x][y].top_obj = _player
         self.player = _player
         _player.x = x
         _player.y = y
@@ -71,7 +71,7 @@ class Level:
         :param y: координата y данной плитки
         :return:
         """
-        self.tiles[x][y].back_obj = _finish
+        self.tiles[x][y].bottom_obj = _finish
         self.finish = _finish
         _finish.x = x
         _finish.y = y
@@ -82,13 +82,13 @@ class Level:
         """
         for i in range(self.horizontal_side):
             for j in range(self.vertical_side):
-                if self.tiles[i][j].back_obj is not None:
-                    self.tiles[i][j].back_obj.draw(self.screen, self.x0 + i * self.size, self.y0 + j * self.size)
+                if self.tiles[i][j].bottom_obj is not None:
+                    self.tiles[i][j].bottom_obj.draw(self.screen, self.x0 + i * self.size, self.y0 + j * self.size)
 
         for i in range(self.horizontal_side):
             for j in range(self.vertical_side):
-                if self.tiles[i][j].front_obj is not None:
-                    self.tiles[i][j].front_obj.draw(self.screen, self.x0 + i * self.size, self.y0 + j * self.size)
+                if self.tiles[i][j].top_obj is not None:
+                    self.tiles[i][j].top_obj.draw(self.screen, self.x0 + i * self.size, self.y0 + j * self.size)
 
     def player_move(self, direction):
         """
@@ -110,7 +110,7 @@ class Level:
             x += 1
 
         if 0 <= x < self.horizontal_side and 0 <= y < self.vertical_side:
-            if self.tiles[x][y].front_obj is not None:
+            if self.tiles[x][y].top_obj is not None:
                 self.player_kick(x, y)
             else:
                 self.player_step(x, y)
@@ -126,15 +126,15 @@ class Level:
         :return:
         """
         self.player.draw_kick(x)
-        if not isinstance(self.tiles[x][y].front_obj, front.Wall):
+        if not isinstance(self.tiles[x][y].top_obj, top.Wall):
             _x = x + (x - self.player.x)
             _y = y + (y - self.player.y)
 
-            if (0 <= _x < self.horizontal_side and
-                    0 <= _y < self.vertical_side and
-                    self.tiles[_x][_y].front_obj is None):
-                self.tiles[_x][_y].front_obj = self.tiles[x][y].front_obj
-                self.tiles[x][y].front_obj = None
+            if (0 <= _x < self.horizontal_side and 0 <= _y < self.vertical_side and
+                    self.tiles[_x][_y].top_obj is None):
+                temp = self.tiles[x][y].top_obj
+                self.tiles[x][y].top_obj = None
+                self.tiles[_x][_y].top_obj = temp
 
     def player_step(self, x, y):
         """
@@ -144,11 +144,11 @@ class Level:
         :param y: координата y клетки
         :return:
         """
-        if not isinstance(self.tiles[x][y].back_obj, back.Water):
-            self.tiles[self.player.x][self.player.y].front_obj = None
+        if not isinstance(self.tiles[x][y].bottom_obj, bottom.Water):
+            self.tiles[self.player.x][self.player.y].top_obj = None
             self.player.x = x
             self.player.y = y
-            self.tiles[self.player.x][self.player.y].front_obj = self.player
+            self.tiles[self.player.x][self.player.y].top_obj = self.player
 
     def check_interaction(self):
         """
@@ -160,6 +160,8 @@ class Level:
                 if self.water_interaction(i, j):
                     pass
                 elif self.next_level_tile_interaction(i, j):
+                    pass
+                elif self.spring_interaction(i, j):
                     pass
 
     def water_interaction(self, i, j):
@@ -173,12 +175,12 @@ class Level:
         :param j: координата y проверяемой клетки
         :return: bool - является ли нижний объект водой, а верхний - коробкой
         """
-        if isinstance(self.tiles[i][j].back_obj, back.Water):
-            self.tiles[i][j].back_obj.update(0.2)
-            if isinstance(self.tiles[i][j].front_obj, front.Box):
-                self.tiles[i][j].back_obj = self.tiles[i][j].front_obj
-                self.tiles[i][j].front_obj = None
-                self.tiles[i][j].back_obj.image = self.tiles[i][j].back_obj.images[1]
+        if isinstance(self.tiles[i][j].bottom_obj, bottom.Water):
+            self.tiles[i][j].bottom_obj.update(0.2)
+            if isinstance(self.tiles[i][j].top_obj, top.Box):
+                self.tiles[i][j].bottom_obj = self.tiles[i][j].top_obj
+                self.tiles[i][j].top_obj = None
+                self.tiles[i][j].bottom_obj.image = self.tiles[i][j].bottom_obj.images[1]
                 return True
 
     def next_level_tile_interaction(self, i, j):
@@ -189,20 +191,49 @@ class Level:
         :param j: координата y проверяемой клетки
         :return: bool - находится ли игрок на плитке перехода на следующий уровень
         """
-        if (isinstance(self.tiles[i][j].back_obj, back.NextLevelTile) and
-                isinstance(self.tiles[i][j].front_obj, front.Player)):
+        if isinstance(self.tiles[i][j].bottom_obj, bottom.NextLevelTile) and isinstance(self.tiles[i][j].top_obj,
+                                                                                        top.Player):
             self.completed = True
             return True
+
+    def spring_interaction(self, i, j):
+        if isinstance(self.tiles[i][j].bottom_obj, bottom.Spring) and self.tiles[i][j].top_obj is not None:
+            spring = self.tiles[i][j].bottom_obj
+            x = i
+            y = j
+            if spring.direction == 'up':
+                y -= spring.power
+            if spring.direction == 'down':
+                y += spring.power
+            if spring.direction == 'left':
+                x -= spring.power
+            if spring.direction == 'right':
+                x += spring.power
+
+            if 0 <= x < self.horizontal_side and 0 <= y < self.vertical_side:
+                if self.tiles[x][y].top_obj is None:
+                    if not isinstance(self.tiles[i][j].top_obj, top.Player):
+                        temp = self.tiles[i][j].top_obj
+                        self.tiles[i][j].top_obj = None
+                        self.tiles[x][y].top_obj = temp
+                        return True
+                    elif not isinstance(self.tiles[x][y].bottom_obj, bottom.Water):
+                        temp = self.tiles[i][j].top_obj
+                        self.tiles[i][j].top_obj = None
+                        self.tiles[x][y].top_obj = temp
+                        self.tiles[x][y].top_obj.x = x
+                        self.tiles[x][y].top_obj.y = y
+                        return True
 
 
 class Tile:
     """
-    Игровая единица площади, которая содержит задние объекты (BackObj) и верхние (FrontObj).
+    Игровая единица площади, которая содержит задние объекты (BottomObj) и верхние (TopObj).
     """
 
-    def __init__(self, front_obj, back_obj):
+    def __init__(self, top_obj, bottom_obj):
         """
         Создает клетку
         """
-        self.back_obj = back_obj
-        self.front_obj = front_obj
+        self.bottom_obj = bottom_obj
+        self.top_obj = top_obj

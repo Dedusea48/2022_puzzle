@@ -1,12 +1,12 @@
 import images
 
 
-class FrontObj:
+class TopObj:
     def draw(self, screen, x0, y0):
         pass
 
 
-class Box(FrontObj):
+class Box(TopObj):
     def __init__(self, images):
         self.images = images
         self.image = self.images[0]
@@ -22,7 +22,7 @@ class Wall(Box):
         super().__init__(images)
 
 
-class Player(FrontObj):
+class Player(TopObj):
     """
     Создаёт игрока. При создании ему передаюся его координаты на платформе, а не на экране.
     Знает, как нарисовать себя.
