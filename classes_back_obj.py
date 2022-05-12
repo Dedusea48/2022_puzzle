@@ -54,7 +54,7 @@ class NextLevelTile(BackObj):
     def __init__(self, image, x=0, y=0):
         self.x = x
         self.y = y
-        self.image = image
+        self.image = image[0]
 
     def draw(self, screen, x, y):
         rect = self.image.get_rect()

@@ -31,11 +31,11 @@ def game_process(is_finished, cur_level):
             elif event.key == pygame.K_DOWN:
                 LEVELS[cur_level].player_move('down')
             elif event.key == pygame.K_LEFT:
-                LEVELS[cur_level].player.change_sprites(images.upload_images_mirrored())
+                LEVELS[cur_level].player.change_sprites(images.load_images_mirrored())
                 LEVELS[cur_level].player_move('left')
                 LEVELS[cur_level].player.to_left()
             elif event.key == pygame.K_RIGHT:
-                LEVELS[cur_level].player.change_sprites(images.upload_images_player())
+                LEVELS[cur_level].player.change_sprites(images.load_images_player())
 
                 LEVELS[cur_level].player_move('right')
                 LEVELS[cur_level].player.to_right()

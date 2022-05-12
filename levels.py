@@ -10,7 +10,7 @@ import images
 
 def level1(screen):
     level1 = classes.Level(screen, 100, 100, 5, 5)
-    level1.add_player(front.Player(images.upload_images_player()), 0, 0)
+    level1.add_player(front.Player(images.load_images_player()), 0, 0)
     level1.add_finish(back.NextLevelTile(images.ladder()), 4, 0)
     level1.tiles[2][1].front_obj = front.Box(images.box_images())
     level1.tiles[1][2].front_obj = front.Box(images.box_images())
@@ -28,7 +28,7 @@ def level1(screen):
 
 def level2(screen):
     level2 = classes.Level(screen, 100, 100, 6, 8)
-    level2.add_player(front.Player(images.upload_images_player()), 0, 7)
+    level2.add_player(front.Player(images.load_images_player()), 0, 7)
     level2.add_finish(back.NextLevelTile(images.ladder()), 5, 7)
 
     level2.tiles[4][2].front_obj = front.Wall(images.wall())

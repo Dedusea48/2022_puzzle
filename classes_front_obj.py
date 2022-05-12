@@ -59,14 +59,14 @@ class Player(FrontObj):
         self.current_sprite += speed
         if int(self.current_sprite) >= len(self.sprites):
             if self.side == 'R':
-                self.sprites = images.upload_images_player()
+                self.sprites = images.load_images_player()
             else:
-                self.sprites = images.upload_images_mirrored()
+                self.sprites = images.load_images_mirrored()
             self.current_sprite = 0
         self.image = self.sprites[int(self.current_sprite)]
 
     def draw_kick(self, x):
         if x > self.x:
-            self.sprites = images.upload_kick()
+            self.sprites = images.load_kick()
         else:
-            self.sprites = images.upload_kick_left()
+            self.sprites = images.load_kick_left()
