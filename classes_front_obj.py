@@ -112,3 +112,41 @@ def move_left(player, level, screen):
             time.sleep(0.04)
             player.update(0.5)
             pygame.display.update()
+
+def move_down(player, level, screen):
+    """
+    Функция рисует игрока, когда он движется вниз.
+    :param player: - игрок
+    :param level: - уровень
+    :return:
+    """
+    n = level.y0 + 40*player.y
+    if (level.tiles[player.x][player.y+1].back_obj.name == 'floor') and (level.tiles[player.x ][player.y+1].front_obj == None):
+        player.change_sprites(images.player_turn())
+        for i in range(10):
+            n += 4
+            level.tiles[player.x][player.y].back_obj.draw(screen,100 + 40*player.x, level.y0 + player.y*40)
+            level.tiles[player.x - 1][player.y].back_obj.draw(screen,100 + 40*(player.x), level.y0 + (player.y+1)*40)
+            player.draw(screen, level.x0 + player.x*40, n, )
+            time.sleep(0.04)
+            player.update(0.5)
+            pygame.display.update()
+
+def move_up(player, level, screen):
+    """
+    Функция рисует игрока, когда он движется вверх.
+    :param player: - игрок
+    :param level: - уровень
+    :return:
+    """
+    n = level.y0 + 40*player.y
+    if (level.tiles[player.x][player.y-1].back_obj.name == 'floor') and (level.tiles[player.x ][player.y-1].front_obj == None):
+        player.change_sprites(images.player_turn())
+        for i in range(10):
+            n -= 4
+            level.tiles[player.x][player.y].back_obj.draw(screen,100 + 40*player.x, level.y0 + player.y*40)
+            level.tiles[player.x - 1][player.y].back_obj.draw(screen,100 + 40*(player.x), level.y0 + (player.y-1)*40)
+            player.draw(screen, level.x0 + player.x*40, n, )
+            time.sleep(0.04)
+            player.update(0.5)
+            pygame.display.update()

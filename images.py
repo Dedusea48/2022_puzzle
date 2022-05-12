@@ -27,7 +27,16 @@ sprites = {
                      pygame.image.load('image/vl3.png'),
                      pygame.image.load('image/vl4.png'), pygame.image.load('image/vl5.png'),
                      pygame.image.load('image/vl6.png'), pygame.image.load('image/vl7.png')],
-    "bridge": [pygame.image.load('image/bridge.png')]
+    "bridge": [pygame.image.load('image/bridge.png')],
+    "player_turn": [pygame.image.load('image/y0.png'),
+                    pygame.image.load('image/y1.png'), pygame.image.load('image/y2.png'),
+                    pygame.image.load('image/y3.png'),
+                    pygame.image.load('image/y4.png'), pygame.image.load('image/y5.png'),
+                    pygame.image.load('image/y6.png'), pygame.image.load('image/y7.png'),
+                    pygame.image.load('image/y8.png'),
+                    pygame.image.load('image/y9.png'), pygame.image.load('image/y10.png'),
+                    pygame.image.load('image/y11.png'),
+                    pygame.image.load('image/y12.png')]
 
 }
 
@@ -123,3 +132,7 @@ def walking_left():
     """
 
     return sprites["walking_left"]
+
+def player_turn():
+
+    return sprites["player_turn"]

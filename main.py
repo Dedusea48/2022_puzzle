@@ -28,9 +28,12 @@ def game_process(is_finished, cur_level):
             exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
+                front.move_up(LEVELS[cur_level].player, LEVELS[cur_level], LEVELS[cur_level].screen)
                 LEVELS[cur_level].player_move('up')
             elif event.key == pygame.K_DOWN:
+                front.move_down(LEVELS[cur_level].player, LEVELS[cur_level], LEVELS[cur_level].screen)
                 LEVELS[cur_level].player_move('down')
+
             elif event.key == pygame.K_LEFT:
                 LEVELS[cur_level].player.change_sprites(images.load_images_mirrored())
                 front.move_left(LEVELS[cur_level].player, LEVELS[cur_level], LEVELS[cur_level].screen)
