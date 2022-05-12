@@ -148,6 +148,7 @@ class Level:
             self.tiles[self.player.x][self.player.y].front_obj = None
             self.player.x = x
             self.player.y = y
+
             self.tiles[self.player.x][self.player.y].front_obj = self.player
 
     def check_interaction(self):

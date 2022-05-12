@@ -6,6 +6,7 @@ class BackObj:
 class Floor(BackObj):
     def __init__(self, image):
         self.image = image
+        self.name = "floor"
 
     def draw(self, screen, x, y):
         rect = self.image.get_rect()
@@ -18,6 +19,7 @@ class Water(BackObj):
         self.current = 0
         self.images = images
         self.image = self.images[self.current]
+        self.name = "water"
 
     def draw(self, screen, x, y):
         rect = self.image.get_rect()
