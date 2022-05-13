@@ -1,15 +1,15 @@
 import images
 import pygame
 import time
-import classes_back_obj
+import classes_bottom_obj as bottom
 
 
-class FrontObj:
+class TopObj:
     def draw(self, screen, x0, y0):
         pass
 
 
-class Box(FrontObj):
+class Box(TopObj):
     def __init__(self, images):
         self.images = images
         self.image = self.images[0]
@@ -25,7 +25,7 @@ class Wall(Box):
         super().__init__(images)
 
 
-class Player(FrontObj):
+class Player(TopObj):
     """
     Создаёт игрока. При создании ему передаюся его координаты на платформе, а не на экране.
     Знает, как нарисовать себя.
@@ -82,12 +82,12 @@ def move_right(player, level, screen):
     :return:
     """
     n = 100 + 40*player.x
-    if (level.tiles[player.x +1][player.y].back_obj.name == 'floor') and (level.tiles[player.x +1][player.y].front_obj == None):
+    if isinstance(level.tiles[player.x +1][player.y].bottom_obj, bottom.Floor) and level.tiles[player.x + 1][player.y].top_obj is None:
         player.change_sprites(images.walking_right())
         for i in range(10):
             n += 4
-            level.tiles[player.x][player.y].back_obj.draw(screen, 100 + 40*player.x, level.y0 + player.y*40)
-            level.tiles[player.x + 1][player.y].back_obj.draw(screen, 100 + 40*(player.x+1), level.y0 + player.y*40)
+            level.tiles[player.x][player.y].bottom_obj.draw(screen, 100 + 40 * player.x, level.y0 + player.y * 40)
+            level.tiles[player.x + 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x + 1), level.y0 + player.y * 40)
             player.draw(screen, n, level.y0 + player.y*40)
             time.sleep(0.04)
             player.update(0.5)
@@ -102,12 +102,12 @@ def move_left(player, level, screen):
     :return:
     """
     n = level.x0 + 40*player.x
-    if (level.tiles[player.x -1][player.y].back_obj.name == 'floor') and (level.tiles[player.x - 1][player.y].front_obj == None):
+    if isinstance(level.tiles[player.x +1][player.y].bottom_obj, bottom.Floor) and level.tiles[player.x + 1][player.y].top_obj is None:
         player.change_sprites(images.walking_left())
         for i in range(10):
             n -= 4
-            level.tiles[player.x][player.y].back_obj.draw(screen,100 + 40*player.x, level.y0 + player.y*40)
-            level.tiles[player.x - 1][player.y].back_obj.draw(screen,100 + 40*(player.x-1), level.y0 + player.y*40)
+            level.tiles[player.x][player.y].bottom_obj.draw(screen, 100 + 40 * player.x, level.y0 + player.y * 40)
+            level.tiles[player.x - 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x - 1), level.y0 + player.y * 40)
             player.draw(screen, n, level.y0 + player.y*40)
             time.sleep(0.04)
             player.update(0.5)
@@ -121,12 +121,12 @@ def move_down(player, level, screen):
     :return:
     """
     n = level.y0 + 40*player.y
-    if (level.tiles[player.x][player.y+1].back_obj.name == 'floor') and (level.tiles[player.x ][player.y+1].front_obj == None):
+    if isinstance(level.tiles[player.x +1][player.y].bottom_obj, bottom.Floor) and level.tiles[player.x + 1][player.y].top_obj is None:
         player.change_sprites(images.player_turn())
         for i in range(10):
             n += 4
-            level.tiles[player.x][player.y].back_obj.draw(screen,100 + 40*player.x, level.y0 + player.y*40)
-            level.tiles[player.x - 1][player.y].back_obj.draw(screen,100 + 40*(player.x), level.y0 + (player.y+1)*40)
+            level.tiles[player.x][player.y].bottom_obj.draw(screen, 100 + 40 * player.x, level.y0 + player.y * 40)
+            level.tiles[player.x - 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x), level.y0 + (player.y + 1) * 40)
             player.draw(screen, level.x0 + player.x*40, n, )
             time.sleep(0.04)
             player.update(0.5)
@@ -140,12 +140,12 @@ def move_up(player, level, screen):
     :return:
     """
     n = level.y0 + 40*player.y
-    if (level.tiles[player.x][player.y-1].back_obj.name == 'floor') and (level.tiles[player.x ][player.y-1].front_obj == None):
+    if isinstance(level.tiles[player.x +1][player.y].bottom_obj, bottom.Floor) and level.tiles[player.x + 1][player.y].top_obj is None:
         player.change_sprites(images.player_turn())
         for i in range(10):
             n -= 4
-            level.tiles[player.x][player.y].back_obj.draw(screen,100 + 40*player.x, level.y0 + player.y*40)
-            level.tiles[player.x - 1][player.y].back_obj.draw(screen,100 + 40*(player.x), level.y0 + (player.y-1)*40)
+            level.tiles[player.x][player.y].bottom_obj.draw(screen, 100 + 40 * player.x, level.y0 + player.y * 40)
+            level.tiles[player.x - 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x), level.y0 + (player.y - 1) * 40)
             player.draw(screen, level.x0 + player.x*40, n, )
             time.sleep(0.04)
             player.update(0.5)

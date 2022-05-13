@@ -1,9 +1,11 @@
-class BackObj:
+import pygame.draw as dr
+
+class BottomObj:
     def draw(self, screen, x, y):
         pass
 
 
-class Floor(BackObj):
+class Floor(BottomObj):
     def __init__(self, image):
         self.image = image
         self.name = "floor"
@@ -14,7 +16,7 @@ class Floor(BackObj):
         screen.blit(self.image, rect)
 
 
-class Water(BackObj):
+class Water(BottomObj):
     def __init__(self, images):
         self.current = 0
         self.images = images
@@ -52,7 +54,7 @@ class Water(BackObj):
 #             level.tiles[self.x][self.y].front_obj = None
 
 
-class NextLevelTile(BackObj):
+class NextLevelTile(BottomObj):
     def __init__(self, image, x=0, y=0):
         self.x = x
         self.y = y
@@ -62,3 +64,11 @@ class NextLevelTile(BackObj):
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
         screen.blit(self.image, rect)
+
+class Spring(BottomObj):
+    def __init__(self, direction, power):
+        self.direction = direction
+        self.power = power
+
+    def draw(self, screen, x, y):
+        dr.rect(screen, 'green', [x, y, 40, 40])
