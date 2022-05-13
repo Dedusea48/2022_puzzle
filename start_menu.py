@@ -23,7 +23,7 @@ def draw_text(text, font, color, surface, x, y):
 
 def button_1(pup):
     w, h = pygame.display.get_surface().get_size()
-    font = pygame.font.Font('undertale battle font_0.ttf', min(int(h / 8), int(w / 8)))
+    font = pygame.font.Font('fonts/undertale battle font_0.ttf', min(int(h / 8), int(w / 8)))
 
     mx, my = pygame.mouse.get_pos()
 
@@ -40,7 +40,7 @@ def button_1(pup):
 
 def button_2(pup):
     w, h = pygame.display.get_surface().get_size()
-    font = pygame.font.Font('undertale battle font_0.ttf', min(int(h / 8), int(w / 8)))
+    font = pygame.font.Font('fonts/undertale battle font_0.ttf', min(int(h / 8), int(w / 8)))
     draw_text('main menu', font, (255, 255, 255), screen, w / 200, h / 20)
 
     mx, my = pygame.mouse.get_pos()
