@@ -74,6 +74,7 @@ class Player(TopObj):
         else:
             self.sprites = images.load_kick_left()
 
+
 def move_right(player, level, screen):
     """
     Функция рисует игрока, когда он движется направо.
@@ -81,18 +82,21 @@ def move_right(player, level, screen):
     :param level: - уровень
     :return:
     """
-    n = 100 + 40*player.x
-    if isinstance(level.tiles[player.x +1][player.y].bottom_obj, bottom.Floor) and level.tiles[player.x + 1][player.y].top_obj is None:
+    n = 100 + 40 * player.x
+    if isinstance(level.tiles[player.x + 1][player.y].bottom_obj, bottom.Floor) and level.tiles[player.x + 1][
+        player.y].top_obj is None:
         player.change_sprites(images.walking_right())
         for i in range(10):
             n += 4
             level.tiles[player.x][player.y].bottom_obj.draw(screen, 100 + 40 * player.x, level.y0 + player.y * 40)
-            level.tiles[player.x + 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x + 1), level.y0 + player.y * 40)
-            player.draw(screen, n, level.y0 + player.y*40)
+            level.tiles[player.x + 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x + 1),
+                                                                level.y0 + player.y * 40)
+            player.draw(screen, n, level.y0 + player.y * 40)
             time.sleep(0.04)
             player.update(0.5)
 
             pygame.display.update()
+
 
 def move_left(player, level, screen):
     """
@@ -101,17 +105,20 @@ def move_left(player, level, screen):
     :param level: - уровень
     :return:
     """
-    n = level.x0 + 40*player.x
-    if isinstance(level.tiles[player.x +1][player.y].bottom_obj, bottom.Floor) and level.tiles[player.x + 1][player.y].top_obj is None:
+    n = level.x0 + 40 * player.x
+    if isinstance(level.tiles[player.x - 1][player.y].bottom_obj, bottom.Floor) and level.tiles[player.x - 1][
+        player.y].top_obj is None:
         player.change_sprites(images.walking_left())
         for i in range(10):
             n -= 4
             level.tiles[player.x][player.y].bottom_obj.draw(screen, 100 + 40 * player.x, level.y0 + player.y * 40)
-            level.tiles[player.x - 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x - 1), level.y0 + player.y * 40)
-            player.draw(screen, n, level.y0 + player.y*40)
+            level.tiles[player.x - 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x - 1),
+                                                                level.y0 + player.y * 40)
+            player.draw(screen, n, level.y0 + player.y * 40)
             time.sleep(0.04)
             player.update(0.5)
             pygame.display.update()
+
 
 def move_down(player, level, screen):
     """
@@ -120,17 +127,20 @@ def move_down(player, level, screen):
     :param level: - уровень
     :return:
     """
-    n = level.y0 + 40*player.y
-    if isinstance(level.tiles[player.x +1][player.y].bottom_obj, bottom.Floor) and level.tiles[player.x + 1][player.y].top_obj is None:
+    n = level.y0 + 40 * player.y
+    if isinstance(level.tiles[player.x][player.y + 1].bottom_obj, bottom.Floor) and level.tiles[player.x][
+        player.y + 1].top_obj is None:
         player.change_sprites(images.player_turn())
         for i in range(10):
             n += 4
             level.tiles[player.x][player.y].bottom_obj.draw(screen, 100 + 40 * player.x, level.y0 + player.y * 40)
-            level.tiles[player.x - 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x), level.y0 + (player.y + 1) * 40)
-            player.draw(screen, level.x0 + player.x*40, n, )
+            level.tiles[player.x - 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x),
+                                                                level.y0 + (player.y + 1) * 40)
+            player.draw(screen, level.x0 + player.x * 40, n, )
             time.sleep(0.04)
             player.update(0.5)
             pygame.display.update()
+
 
 def move_up(player, level, screen):
     """
@@ -139,14 +149,16 @@ def move_up(player, level, screen):
     :param level: - уровень
     :return:
     """
-    n = level.y0 + 40*player.y
-    if isinstance(level.tiles[player.x +1][player.y].bottom_obj, bottom.Floor) and level.tiles[player.x + 1][player.y].top_obj is None:
+    n = level.y0 + 40 * player.y
+    if isinstance(level.tiles[player.x][player.y - 1].bottom_obj, bottom.Floor) and level.tiles[player.x][
+        player.y - 1].top_obj is None:
         player.change_sprites(images.player_turn())
         for i in range(10):
             n -= 4
             level.tiles[player.x][player.y].bottom_obj.draw(screen, 100 + 40 * player.x, level.y0 + player.y * 40)
-            level.tiles[player.x - 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x), level.y0 + (player.y - 1) * 40)
-            player.draw(screen, level.x0 + player.x*40, n, )
+            level.tiles[player.x - 1][player.y].bottom_obj.draw(screen, 100 + 40 * (player.x),
+                                                                level.y0 + (player.y - 1) * 40)
+            player.draw(screen, level.x0 + player.x * 40, n, )
             time.sleep(0.04)
             player.update(0.5)
             pygame.display.update()

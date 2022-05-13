@@ -12,6 +12,8 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 finished = [False]
 
+pygame.mixer.music.load("Sound/Backround.mp3")
+pygame.mixer.music.play(-1)
 LEVELS = (levels.level1(screen), levels.level2(screen), levels.level3(screen))
 cur_level = 2
 
@@ -46,6 +48,7 @@ def game_process(is_finished, cur_level):
                 LEVELS[cur_level].player.to_right()
             elif event.key == pygame.K_ESCAPE:
                 finished[0] = True
+
 
     LEVELS[cur_level].player.update(0.5)
     LEVELS[cur_level].check_interaction()
