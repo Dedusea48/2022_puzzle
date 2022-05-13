@@ -49,7 +49,6 @@ def game_process(is_finished, cur_level):
             elif event.key == pygame.K_ESCAPE:
                 finished[0] = True
 
-
     LEVELS[cur_level].player.update(0.5)
     LEVELS[cur_level].check_interaction()
     if LEVELS[cur_level].completed:

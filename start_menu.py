@@ -8,7 +8,6 @@ mainClock = pygame.time.Clock()
 import pygame.locals as pl
 import main
 
-
 pygame.init()
 pygame.display.set_caption('puzzle')
 screen = pygame.display.set_mode((500, 500), pl.RESIZABLE)

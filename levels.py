@@ -57,6 +57,7 @@ def level2(screen):
     level2.tiles[2][5].top_obj = front.Box(images.box_images())
     return level2
 
+
 def level3(screen):
     level3 = classes.Level(screen, 100, 100, 6, 8)
     level3.add_player(front.Player(images.load_images_player()), 0, 7)

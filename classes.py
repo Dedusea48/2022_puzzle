@@ -185,6 +185,14 @@ class Level:
                 return True
 
     def spring_interaction(self, i, j):
+        """
+        Метод взаимодействия с пружинкой. Если сверху пружинки есть объект,
+        то проверяется, есть ли верхний объект на клетке приземления. Если нет, то пружинка пуляет объект
+        в данную клетку. Пружинка не пуляет игрока, если нижний объект клетки приземления - вода(Water).
+        :param i: координата x проверяемой клетки
+        :param j: координата y проверяемой клетки
+        :return: bool - пульнула ли пружинка объект или нет
+        """
         if isinstance(self.tiles[i][j].bottom_obj, bottom.Spring) and self.tiles[i][j].top_obj is not None:
             spring = self.tiles[i][j].bottom_obj
             x = i

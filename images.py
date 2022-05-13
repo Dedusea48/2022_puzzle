@@ -133,6 +133,6 @@ def walking_left():
 
     return sprites["walking_left"]
 
-def player_turn():
 
+def player_turn():
     return sprites["player_turn"]
