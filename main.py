@@ -8,7 +8,7 @@ HEIGHT = 600
 FPS = 30
 
 pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 finished = [False]
 
