@@ -6,8 +6,10 @@ class BottomObj:
 
 
 class Floor(BottomObj):
-    def __init__(self, image):
-        self.image = image
+    def __init__(self, images):
+        self.current = 0
+        self.images = images
+        self.image = images[self.current]
         self.name = "floor"
 
     def draw(self, screen, x, y):
