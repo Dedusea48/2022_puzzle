@@ -28,7 +28,7 @@ def game_process(is_finished, cur_level):
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        elif event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN and LEVELS[cur_level].player.dx == LEVELS[cur_level].player.dy:
             if event.key == pygame.K_UP:
                 # LEVELS[cur_level].player.move_up(LEVELS[cur_level], LEVELS[cur_level].screen)
                 LEVELS[cur_level].player_move('up')
