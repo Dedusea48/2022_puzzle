@@ -134,6 +134,10 @@ class Level:
                     0 <= _y < self.vertical_side and
                     self.tiles[_x][_y].top_obj is None):
                 self.tiles[_x][_y].top_obj = self.tiles[x][y].top_obj
+                dx = _x - x
+                dy = _y - y
+                self.tiles[_x][_y].top_obj.start_moving(dx, dy)
+
                 self.tiles[x][y].top_obj = None
 
     def player_step(self, x, y):
@@ -146,9 +150,12 @@ class Level:
         """
         if not isinstance(self.tiles[x][y].bottom_obj, bottom.Water):
             self.tiles[self.player.x][self.player.y].top_obj = None
+            dx = x - self.player.x
+            dy = y - self.player.y
+            self.player.start_moving(dx, dy)
+
             self.player.x = x
             self.player.y = y
-
             self.tiles[self.player.x][self.player.y].top_obj = self.player
 
     def check_interaction(self):

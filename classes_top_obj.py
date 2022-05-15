@@ -11,13 +11,33 @@ class TopObj:
 
 class Box(TopObj):
     def __init__(self, images):
+        self.dx = 0
+        self.dy = 0
         self.images = images
         self.image = self.images[0]
 
     def draw(self, screen, x, y):
         rect = self.image.get_rect()
-        rect.center = (x + 20, y + 20)
+        rect.center = (x + 20 + self.dx, y + 20 + self.dy)
         screen.blit(self.image, rect)
+        self.keep_moving()
+
+    def start_moving(self, dx, dy):
+        self.dx = -40 * dx
+        self.dy = -40 * dy
+
+    def keep_moving(self):
+        if 0 < abs(self.dx) or 0 < abs(self.dy):
+            if self.dx != 0:
+
+                self.dx += -self.dx / abs(self.dx) * 5
+                time.sleep(0.01)
+
+            if self.dy != 0:
+                self.dy += -self.dy / abs(self.dy) * 5
+                time.sleep(0.01)
+
+
 
 
 class Wall(Box):
@@ -34,15 +54,19 @@ class Player(TopObj):
     def __init__(self, images, x=0, y=0):
         self.x = x
         self.y = y
+        self.dx = 0
+        self.dy = 0
         self.sprites = images
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
         self.side = 'R'
+        self.check = 0
 
     def draw(self, screen, x, y):
         rect = self.image.get_rect()
-        rect.center = (x + 20, y + 20)
+        rect.center = (x + 20 + self.dx, y + 20 + self.dy)
         screen.blit(self.image, rect)
+        self.keep_moving()
 
     def change_sprites(self, images):
         self.sprites = images
@@ -74,8 +98,7 @@ class Player(TopObj):
         else:
             self.sprites = images.load_kick_left()
 
-
-    def move_right(self, level, screen):
+    def start_moving(self, dx, dy):
         """
         Функция рисует игрока, когда он движется направо.
         :param player: - игрок
@@ -83,20 +106,34 @@ class Player(TopObj):
         :param screen:- экран
         :return:
         """
-        n = 100 + 40 * self.x
-        if isinstance(level.tiles[self.x + 1][self.y].bottom_obj, bottom.Floor) and level.tiles[self.x + 1][self.y].top_obj is None:
+        if dx > 0:
             self.change_sprites(images.walking_right())
-            for i in range(10):
-                n += 4
-                level.tiles[self.x][self.y].bottom_obj.draw(screen, 100 + 40 * self.x, level.y0 + self.y * 40)
-                level.tiles[self.x + 1][self.y].bottom_obj.draw(screen, 100 + 40 * (self.x + 1),
-                                                                    level.y0 + self.y * 40)
-                self.draw(screen, n, level.y0 + self.y * 40)
-                time.sleep(0.04)
+        elif dx < 0:
+            self.change_sprites(images.walking_left())
+        elif self.side == 'R':
+            self.change_sprites(images.walking_right())
+        elif self.side == 'L':
+            self.change_sprites(images.walking_left())
+
+        self.dx = -40 * dx
+        self.dy = -40 * dy
+
+    def keep_moving(self):
+        if 0 < abs(self.dx) or 0 < abs(self.dy):
+            if self.dx != 0:
+
+                self.dx += -self.dx / abs(self.dx) * 4
+                time.sleep(0.02)
                 self.update(0.5)
 
-                pygame.display.update()
+            if self.dy != 0:
+                self.dy += -self.dy / abs(self.dy) * 4
+                time.sleep(0.02)
+                self.update(0.5)
 
+        # else:
+        #     self.dx = 0
+        #     self.dy = 0
 
     def move_left(self, level, screen):
         """
@@ -108,18 +145,18 @@ class Player(TopObj):
         :return:
         """
         n = level.x0 + 40 * self.x
-        if isinstance(level.tiles[self.x - 1][self.y].bottom_obj, bottom.Floor) and level.tiles[self.x - 1][self.y].top_obj is None:
+        if isinstance(level.tiles[self.x - 1][self.y].bottom_obj, bottom.Floor) and level.tiles[self.x - 1][
+            self.y].top_obj is None:
             self.change_sprites(images.walking_left())
             for i in range(10):
                 n -= 4
                 level.tiles[self.x][self.y].bottom_obj.draw(screen, 100 + 40 * self.x, level.y0 + self.y * 40)
                 level.tiles[self.x - 1][self.y].bottom_obj.draw(screen, 100 + 40 * (self.x - 1),
-                                                                    level.y0 + self.y * 40)
+                                                                level.y0 + self.y * 40)
                 self.draw(screen, n, level.y0 + self.y * 40)
-                time.sleep(0.04)
+                time.sleep(0.1)
                 self.update(0.5)
                 pygame.display.update()
-
 
     def move_down(self, level, screen):
         """
@@ -130,18 +167,18 @@ class Player(TopObj):
         :return:
         """
         n = level.y0 + 40 * self.y
-        if isinstance(level.tiles[self.x][self.y + 1].bottom_obj, bottom.Floor) and level.tiles[self.x][self.y + 1].top_obj is None:
+        if isinstance(level.tiles[self.x][self.y + 1].bottom_obj, bottom.Floor) and level.tiles[self.x][
+            self.y + 1].top_obj is None:
             self.change_sprites(images.player_turn())
             for i in range(10):
                 n += 4
                 level.tiles[self.x][self.y].bottom_obj.draw(screen, 100 + 40 * self.x, level.y0 + self.y * 40)
                 level.tiles[self.x - 1][self.y].bottom_obj.draw(screen, 100 + 40 * (self.x),
-                                                                    level.y0 + (self.y + 1) * 40)
+                                                                level.y0 + (self.y + 1) * 40)
                 self.draw(screen, level.x0 + self.x * 40, n, )
                 time.sleep(0.04)
                 self.update(0.5)
                 pygame.display.update()
-
 
     def move_up(self, level, screen):
         """
@@ -152,13 +189,14 @@ class Player(TopObj):
         :return:
         """
         n = level.y0 + 40 * self.y
-        if isinstance(level.tiles[self.x][self.y - 1].bottom_obj, bottom.Floor) and level.tiles[self.x][self.y - 1].top_obj is None:
+        if isinstance(level.tiles[self.x][self.y - 1].bottom_obj, bottom.Floor) and level.tiles[self.x][
+            self.y - 1].top_obj is None:
             self.change_sprites(images.player_turn())
             for i in range(10):
                 n -= 4
                 level.tiles[self.x][self.y].bottom_obj.draw(screen, 100 + 40 * self.x, level.y0 + self.y * 40)
                 level.tiles[self.x - 1][self.y].bottom_obj.draw(screen, 100 + 40 * (self.x),
-                                                                    level.y0 + (self.y - 1) * 40)
+                                                                level.y0 + (self.y - 1) * 40)
                 self.draw(screen, level.x0 + self.x * 40, n, )
                 time.sleep(0.04)
                 self.update(0.5)
