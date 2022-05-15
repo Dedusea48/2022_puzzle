@@ -200,7 +200,9 @@ class Level:
         :param j: координата y проверяемой клетки
         :return: bool - пульнула ли пружинка объект или нет
         """
-        if isinstance(self.tiles[i][j].bottom_obj, bottom.Spring) and self.tiles[i][j].top_obj is not None:
+
+        if (isinstance(self.tiles[i][j].bottom_obj, bottom.Spring) and self.tiles[i][j].top_obj is not None and
+                self.tiles[i][j].top_obj.dx == 0 and self.tiles[i][j].top_obj.dy == 0):
             spring = self.tiles[i][j].bottom_obj
             x = i
             y = j
@@ -219,6 +221,8 @@ class Level:
                         temp = self.tiles[i][j].top_obj
                         self.tiles[i][j].top_obj = None
                         self.tiles[x][y].top_obj = temp
+                        temp.start_moving(x - i, y - j)
+                        temp.start_flight(abs(x-i), abs(y-j))
                         return True
                     elif not isinstance(self.tiles[x][y].bottom_obj, bottom.Water):
                         temp = self.tiles[i][j].top_obj
@@ -226,6 +230,7 @@ class Level:
                         self.tiles[x][y].top_obj = temp
                         self.tiles[x][y].top_obj.x = x
                         self.tiles[x][y].top_obj.y = y
+                        temp.start_moving(x - i, y - j)
                         return True
 
     def next_level_tile_interaction(self, i, j):

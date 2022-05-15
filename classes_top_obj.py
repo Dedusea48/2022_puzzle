@@ -13,31 +13,48 @@ class Box(TopObj):
     def __init__(self, images):
         self.dx = 0
         self.dy = 0
+        self.a = 1
+        self.b = 0
+        self.size = 1
         self.images = images
         self.image = self.images[0]
 
     def draw(self, screen, x, y):
-        rect = self.image.get_rect()
+        temp_image = pygame.transform.rotozoom(self.image, 0, self.size)
+        rect = temp_image.get_rect()
         rect.center = (x + 20 + self.dx, y + 20 + self.dy)
-        screen.blit(self.image, rect)
+        screen.blit(temp_image, rect)
         self.keep_moving()
 
     def start_moving(self, dx, dy):
         self.dx = -40 * dx
         self.dy = -40 * dy
 
+    def start_flight(self, max_dx, max_dy):
+        self.size += 0.1
+        if max_dy == 0:
+            temp = max_dx * 40
+        else:
+            temp = max_dy * 40
+
+        self.a = -2 / temp ** 2
+        self.b = 2 / temp
+
     def keep_moving(self):
         if 0 < abs(self.dx) or 0 < abs(self.dy):
             if self.dx != 0:
-
                 self.dx += -self.dx / abs(self.dx) * 5
                 time.sleep(0.01)
-
+                if self.size > 1:
+                    self.size = self.a * self.dx ** 2 + self.b * self.dx + 1
             if self.dy != 0:
                 self.dy += -self.dy / abs(self.dy) * 5
                 time.sleep(0.01)
-
-
+                if self.size > 1:
+                    self.size = self.a * abs(self.dy) ** 2 + self.b * abs(self.dy) + 1
+                    print(self.size)
+                else:
+                    self.size = 1
 
 
 class Wall(Box):
@@ -121,7 +138,6 @@ class Player(TopObj):
     def keep_moving(self):
         if 0 < abs(self.dx) or 0 < abs(self.dy):
             if self.dx != 0:
-
                 self.dx += -self.dx / abs(self.dx) * 4
                 time.sleep(0.02)
                 self.update(0.5)
