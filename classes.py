@@ -185,7 +185,7 @@ class Level:
         """
         if isinstance(self.tiles[i][j].bottom_obj, bottom.Water):
             self.tiles[i][j].bottom_obj.update(0.2)
-            if isinstance(self.tiles[i][j].top_obj, top.Box):
+            if isinstance(self.tiles[i][j].top_obj, top.Box) and self.tiles[i][j].top_obj.dx == self.tiles[i][j].top_obj.dy:
                 self.tiles[i][j].bottom_obj = self.tiles[i][j].top_obj
                 self.tiles[i][j].top_obj = None
                 self.tiles[i][j].bottom_obj.image = self.tiles[i][j].bottom_obj.images[1]
@@ -231,6 +231,7 @@ class Level:
                         self.tiles[x][y].top_obj.x = x
                         self.tiles[x][y].top_obj.y = y
                         temp.start_moving(x - i, y - j)
+                        temp.start_flight(abs(x - i), abs(y - j))
                         return True
 
     def next_level_tile_interaction(self, i, j):
