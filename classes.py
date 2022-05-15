@@ -4,9 +4,8 @@
 
 import classes_bottom_obj as bottom
 import classes_top_obj as top
+import images
 import pygame
-
-grass = pygame.image.load('image/Grass.jpg')
 
 
 class Level:
@@ -44,7 +43,7 @@ class Level:
         for i in range(horizontal_side):
             column = []
             for j in range(vertical_side):
-                floor = bottom.Floor(grass)
+                floor = bottom.Floor((images.grass())[0])
                 tile = Tile(None, floor)
                 column.append(tile)
             self.tiles.append(column)
@@ -185,7 +184,8 @@ class Level:
         """
         if isinstance(self.tiles[i][j].bottom_obj, bottom.Water):
             self.tiles[i][j].bottom_obj.update(0.2)
-            if isinstance(self.tiles[i][j].top_obj, top.Box) and self.tiles[i][j].top_obj.dx == self.tiles[i][j].top_obj.dy:
+            if isinstance(self.tiles[i][j].top_obj, top.Box) and self.tiles[i][j].top_obj.dx == self.tiles[i][
+                j].top_obj.dy:
                 self.tiles[i][j].bottom_obj = self.tiles[i][j].top_obj
                 self.tiles[i][j].top_obj = None
                 self.tiles[i][j].bottom_obj.image = self.tiles[i][j].bottom_obj.images[1]
@@ -222,7 +222,7 @@ class Level:
                         self.tiles[i][j].top_obj = None
                         self.tiles[x][y].top_obj = temp
                         temp.start_moving(x - i, y - j)
-                        temp.start_flight(abs(x-i), abs(y-j))
+                        temp.start_flight(abs(x - i), abs(y - j))
                         return True
                     elif not isinstance(self.tiles[x][y].bottom_obj, bottom.Water):
                         temp = self.tiles[i][j].top_obj

@@ -1,5 +1,6 @@
 import pygame.draw as dr
 
+
 class BottomObj:
     def draw(self, screen, x, y):
         pass
@@ -8,8 +9,8 @@ class BottomObj:
 class Floor(BottomObj):
     def __init__(self, images):
         self.current = 0
-        #self.images = images
-        self.image = images #[self.current]
+        # self.images = images
+        self.image = images  # [self.current]
         self.name = "floor"
 
     def draw(self, screen, x, y):
@@ -66,6 +67,7 @@ class NextLevelTile(BottomObj):
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
         screen.blit(self.image, rect)
+
 
 class Spring(BottomObj):
     def __init__(self, direction, power):

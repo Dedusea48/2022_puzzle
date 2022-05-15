@@ -149,6 +149,7 @@ class Player(TopObj):
         self.dy = -40 * dy
 
     def start_flight(self, max_dx, max_dy):
+        self.change_sprites(images.player_jump())
         self.size += 0.1
         if max_dy == 0:
             temp = max_dx * 40
