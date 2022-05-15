@@ -1,8 +1,17 @@
 import pygame.draw as dr
 
+import images
+
 
 class BottomObj:
     def draw(self, screen, x, y):
+        """
+        Функция рисует обьект.
+        :param screen: - экран
+        :param x: - координата x
+        :param y: - координата y
+        :return:
+        """
         pass
 
 
@@ -14,6 +23,14 @@ class Floor(BottomObj):
         self.name = "floor"
 
     def draw(self, screen, x, y):
+        """
+        Функция рисует пол.
+        :param screen: - экран
+        :param x: - координата x
+        :param y: - координата y
+        :return:
+
+        """
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
         screen.blit(self.image, rect)
@@ -27,6 +44,13 @@ class Water(BottomObj):
         self.name = "water"
 
     def draw(self, screen, x, y):
+        """
+        Функция рисует воду.
+        :param screen: - экран
+        :param x: - координата x
+        :param y: - координата y
+        :return:
+        """
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
         screen.blit(self.image, rect)
@@ -64,15 +88,44 @@ class NextLevelTile(BottomObj):
         self.image = image[0]
 
     def draw(self, screen, x, y):
+        """
+        Функция рисует клетку.
+        :param screen: - экран
+        :param x: - координата x
+        :param y: - координата y
+        :return:
+
+        """
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
         screen.blit(self.image, rect)
 
 
 class Spring(BottomObj):
-    def __init__(self, direction, power):
+    def __init__(self, direction, power, images):
         self.direction = direction
         self.power = power
+        self.current = 0
+        self.images = images
+        self.image = images[self.current]
 
     def draw(self, screen, x, y):
-        dr.rect(screen, 'green', [x, y, 40, 40])
+        """
+        Функция рисует пружину.
+        :param screen: - экран
+        :param x: - координата x
+        :param y: - координата y
+        :return:
+        """
+        rect = self.image.get_rect()
+        rect.center = (x + 20, y + 20)
+        screen.blit((images.grass())[0], rect)
+        rect = self.image.get_rect()
+        rect.center = (x + 20, y + 20)
+        screen.blit(self.image, rect)
+
+    def update(self, speed):
+        self.current += speed
+        if int(self.current) >= len(self.images):
+            self.current = 0
+        self.image = self.images[int(self.current)]

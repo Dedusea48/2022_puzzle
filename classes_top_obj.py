@@ -24,6 +24,13 @@ class Box(TopObj):
         self.image = self.images[0]
 
     def draw(self, screen, x, y):
+        """
+        Функция рисует коробку.
+        :param screen: - экран
+        :param x: - координата x
+        :param y: - координата y
+        :return: 
+        """
         temp_image = pygame.transform.rotozoom(self.image, 0, self.size)
         rect = temp_image.get_rect()
         rect.center = (x + 20 + self.dx, y + 20 + self.dy)
@@ -86,6 +93,10 @@ class Player(TopObj):
         self.check = 0
 
     def draw(self, screen, x, y):
+        """
+        Функция рисует игрока.
+        :return:
+        """
         if self.size == 1:
             rect = self.image.get_rect()
             rect.center = (x + 20 + self.dx, y + 20 + self.dy)
@@ -99,18 +110,30 @@ class Player(TopObj):
             self.keep_moving()
 
     def change_sprites(self, images):
+        """
+        Функция меняет картинки игрока.
+        :return:
+        """
         self.sprites = images
 
     def to_left(self):
+        """
+        Функция меняет направление игрока налево.
+        :return:
+        """
         self.side = 'L'
 
     def to_right(self):
+        """
+        Функция меняет направление игрока направо.
+        :return:
+        """
         self.side = 'R'
 
     def update(self, speed):
         """
-        Функция меняет изображения игрока с заданной скоростью
-        :param speed: - скорость анимации
+        Функция меняет изображения игрока с заданной скоростью.
+        :param speed: - скорость.
         :return:
         """
         self.current_sprite += speed
@@ -123,6 +146,12 @@ class Player(TopObj):
         self.image = self.sprites[int(self.current_sprite)]
 
     def draw_kick(self, x):
+        """
+        Функция рисует игрока, когда он пинает коробку.
+        :param x: - x
+        :return:
+        """
+
         if x > self.x:
             self.sprites = images.load_kick()
         else:
@@ -130,10 +159,9 @@ class Player(TopObj):
 
     def start_moving(self, dx, dy):
         """
-        Функция рисует игрока, когда он движется направо.
-        :param player: - игрок
-        :param level: - уровень
-        :param screen:- экран
+        Функция меняет изображения игрока игрока, когда он движется.
+        :param dy: - dy
+        :param dx: - dx
         :return:
         """
         if dx > 0:
@@ -149,6 +177,12 @@ class Player(TopObj):
         self.dy = -40 * dy
 
     def start_flight(self, max_dx, max_dy):
+        """
+        Функция рисует игрока, когда он летит.
+        :param max_dx:
+        :param max_dy:
+        :return:
+        """
         self.change_sprites(images.player_jump())
         self.size += 0.1
         if max_dy == 0:
@@ -160,6 +194,10 @@ class Player(TopObj):
         self.b = 2 / temp
 
     def keep_moving(self):
+        """
+        Функция движет игрока.
+        :return:
+        """
         if 0 < abs(self.dx) or 0 < abs(self.dy):
             if self.dx != 0:
                 self.dx += -self.dx / abs(self.dx) * 5

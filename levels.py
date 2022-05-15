@@ -69,7 +69,7 @@ def level3(screen):
     level3.tiles[1][6].top_obj = front.Box(images.box_images())
     level3.tiles[2][5].top_obj = front.Box(images.box_images())
 
-    level3.tiles[1][1].bottom_obj = back.Spring('down', 3)
+    level3.tiles[1][1].bottom_obj = back.Spring('down', 3, images.arrow())
     level3.tiles[1][4].bottom_obj = back.Water(images.water_images())
 
     return level3
