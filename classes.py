@@ -201,38 +201,39 @@ class Level:
         :return: bool - пульнула ли пружинка объект или нет
         """
 
-        if (isinstance(self.tiles[i][j].bottom_obj, bottom.Spring) and self.tiles[i][j].top_obj is not None and
-                self.tiles[i][j].top_obj.dx == 0 and self.tiles[i][j].top_obj.dy == 0):
-            spring = self.tiles[i][j].bottom_obj
-            x = i
-            y = j
-            if spring.direction == 'up':
-                y -= spring.power
-            if spring.direction == 'down':
-                y += spring.power
-            if spring.direction == 'left':
-                x -= spring.power
-            if spring.direction == 'right':
-                x += spring.power
+        if isinstance(self.tiles[i][j].bottom_obj, bottom.Spring):
+            self.tiles[i][j].bottom_obj.update(0.4)
+            if self.tiles[i][j].top_obj is not None and self.tiles[i][j].top_obj.dx == 0 and self.tiles[i][j].top_obj.dy == 0:
+                spring = self.tiles[i][j].bottom_obj
+                x = i
+                y = j
+                if spring.direction == 'up':
+                    y -= spring.power
+                if spring.direction == 'down':
+                    y += spring.power
+                if spring.direction == 'left':
+                    x -= spring.power
+                if spring.direction == 'right':
+                    x += spring.power
 
-            if 0 <= x < self.horizontal_side and 0 <= y < self.vertical_side:
-                if self.tiles[x][y].top_obj is None:
-                    if not isinstance(self.tiles[i][j].top_obj, top.Player):
-                        temp = self.tiles[i][j].top_obj
-                        self.tiles[i][j].top_obj = None
-                        self.tiles[x][y].top_obj = temp
-                        temp.start_moving(x - i, y - j)
-                        temp.start_flight(abs(x - i), abs(y - j))
-                        return True
-                    elif not isinstance(self.tiles[x][y].bottom_obj, bottom.Water):
-                        temp = self.tiles[i][j].top_obj
-                        self.tiles[i][j].top_obj = None
-                        self.tiles[x][y].top_obj = temp
-                        self.tiles[x][y].top_obj.x = x
-                        self.tiles[x][y].top_obj.y = y
-                        temp.start_moving(x - i, y - j)
-                        temp.start_flight(abs(x - i), abs(y - j))
-                        return True
+                if 0 <= x < self.horizontal_side and 0 <= y < self.vertical_side:
+                    if self.tiles[x][y].top_obj is None:
+                        if not isinstance(self.tiles[i][j].top_obj, top.Player):
+                            temp = self.tiles[i][j].top_obj
+                            self.tiles[i][j].top_obj = None
+                            self.tiles[x][y].top_obj = temp
+                            temp.start_moving(x - i, y - j)
+                            temp.start_flight(abs(x - i), abs(y - j))
+                            return True
+                        elif not isinstance(self.tiles[x][y].bottom_obj, bottom.Water):
+                            temp = self.tiles[i][j].top_obj
+                            self.tiles[i][j].top_obj = None
+                            self.tiles[x][y].top_obj = temp
+                            self.tiles[x][y].top_obj.x = x
+                            self.tiles[x][y].top_obj.y = y
+                            temp.start_moving(x - i, y - j)
+                            temp.start_flight(abs(x - i), abs(y - j))
+                            return True
 
     def next_level_tile_interaction(self, i, j):
         """
