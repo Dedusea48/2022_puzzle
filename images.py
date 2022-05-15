@@ -32,12 +32,12 @@ sprites = {
                         pygame.image.load('image/j4.png'), pygame.image.load('image/j5.png'),
                         pygame.image.load('image/j6.png'), pygame.image.load('image/j7.png')],
     "arrow": [pygame.image.load('image/ar0.png'),
-                        pygame.image.load('image/ar1.png'), pygame.image.load('image/ar2.png'),
-                        pygame.image.load('image/ar3.png'), pygame.image.load('image/ar4.png'),
-                        pygame.image.load('image/ar5.png'), pygame.image.load('image/ar6.png'),
-                        pygame.image.load('image/ar7.png'), pygame.image.load('image/ar8.png'),
-                        pygame.image.load('image/ar9.png'), pygame.image.load('image/ar10.png'),
-                        pygame.image.load('image/ar11.png')]
+              pygame.image.load('image/ar1.png'), pygame.image.load('image/ar2.png'),
+              pygame.image.load('image/ar3.png'), pygame.image.load('image/ar4.png'),
+              pygame.image.load('image/ar5.png'), pygame.image.load('image/ar6.png'),
+              pygame.image.load('image/ar7.png'), pygame.image.load('image/ar8.png'),
+              pygame.image.load('image/ar9.png'), pygame.image.load('image/ar10.png'),
+              pygame.image.load('image/ar11.png')]
 
 }
 
@@ -141,6 +141,7 @@ def player_jump():
     :return:
     """
     return sprites["player_jump"]
+
 
 def arrow():
     """

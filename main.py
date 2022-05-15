@@ -1,7 +1,6 @@
 import pygame
 import levels
 import images
-import classes_top_obj as front
 
 WIDTH = 600
 HEIGHT = 600
@@ -18,9 +17,9 @@ LEVELS = (levels.level1(screen), levels.level2(screen), levels.level3(screen))
 cur_level = 2
 
 
-def game_process(is_finished, cur_level):
+def game_process(is_finished, _cur_level):
     """"""
-    LEVELS[cur_level].draw()
+    LEVELS[_cur_level].draw()
     pygame.display.update()
     clock.tick(FPS)
 
@@ -28,29 +27,25 @@ def game_process(is_finished, cur_level):
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        elif event.type == pygame.KEYDOWN and LEVELS[cur_level].player.dx == LEVELS[cur_level].player.dy:
+        elif event.type == pygame.KEYDOWN and LEVELS[_cur_level].player.dx == LEVELS[_cur_level].player.dy:
             if event.key == pygame.K_UP:
-                # LEVELS[cur_level].player.move_up(LEVELS[cur_level], LEVELS[cur_level].screen)
-                LEVELS[cur_level].player_move('up')
+                LEVELS[_cur_level].player_move('up')
             elif event.key == pygame.K_DOWN:
-                # LEVELS[cur_level].player.move_down( LEVELS[cur_level], LEVELS[cur_level].screen)
-                LEVELS[cur_level].player_move('down')
+                LEVELS[_cur_level].player_move('down')
 
             elif event.key == pygame.K_LEFT:
-                LEVELS[cur_level].player.change_sprites(images.load_images_mirrored())
-                # LEVELS[cur_level].player.move_left(LEVELS[cur_level], LEVELS[cur_level].screen)
-                LEVELS[cur_level].player_move('left')
-                LEVELS[cur_level].player.to_left()
+                LEVELS[_cur_level].player.change_sprites(images.load_images_mirrored())
+                LEVELS[_cur_level].player_move('left')
+                LEVELS[_cur_level].player.to_left()
             elif event.key == pygame.K_RIGHT:
-                LEVELS[cur_level].player.change_sprites(images.load_images_player())
-                # LEVELS[cur_level].player.start_moving(LEVELS[cur_level], LEVELS[cur_level].screen)
-                LEVELS[cur_level].player_move('right')
-                LEVELS[cur_level].player.to_right()
+                LEVELS[_cur_level].player.change_sprites(images.load_images_player())
+                LEVELS[_cur_level].player_move('right')
+                LEVELS[_cur_level].player.to_right()
             elif event.key == pygame.K_ESCAPE:
                 finished[0] = True
 
-    LEVELS[cur_level].player.update(0.5)
-    LEVELS[cur_level].check_interaction()
-    if LEVELS[cur_level].completed:
-        cur_level += 1
-    return cur_level
+    LEVELS[_cur_level].player.update(0.4)
+    LEVELS[_cur_level].check_interaction()
+    if LEVELS[_cur_level].completed:
+        _cur_level += 1
+    return _cur_level

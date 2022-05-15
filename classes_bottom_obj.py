@@ -1,5 +1,3 @@
-import pygame.draw as dr
-
 import images
 
 
@@ -16,10 +14,10 @@ class BottomObj:
 
 
 class Floor(BottomObj):
-    def __init__(self, images):
+    def __init__(self, _images):
         self.current = 0
         # self.images = images
-        self.image = images  # [self.current]
+        self.image = _images  # [self.current]
         self.name = "floor"
 
     def draw(self, screen, x, y):
@@ -37,9 +35,9 @@ class Floor(BottomObj):
 
 
 class Water(BottomObj):
-    def __init__(self, images):
+    def __init__(self, _images):
         self.current = 0
-        self.images = images
+        self.images = _images
         self.image = self.images[self.current]
         self.name = "water"
 
@@ -102,12 +100,12 @@ class NextLevelTile(BottomObj):
 
 
 class Spring(BottomObj):
-    def __init__(self, direction, power, images):
+    def __init__(self, direction, power, _images):
         self.direction = direction
         self.power = power
         self.current = 0
-        self.images = images
-        self.image = images[self.current]
+        self.images = _images
+        self.image = _images[self.current]
 
     def draw(self, screen, x, y):
         """

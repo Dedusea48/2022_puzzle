@@ -5,7 +5,6 @@
 import classes_bottom_obj as bottom
 import classes_top_obj as top
 import images
-import pygame
 
 
 class Level:
@@ -184,8 +183,8 @@ class Level:
         """
         if isinstance(self.tiles[i][j].bottom_obj, bottom.Water):
             self.tiles[i][j].bottom_obj.update(0.2)
-            if isinstance(self.tiles[i][j].top_obj, top.Box) and self.tiles[i][j].top_obj.dx == self.tiles[i][
-                j].top_obj.dy:
+            if (isinstance(self.tiles[i][j].top_obj, top.Box) and
+                    self.tiles[i][j].top_obj.dx == self.tiles[i][j].top_obj.dy):
                 self.tiles[i][j].bottom_obj = self.tiles[i][j].top_obj
                 self.tiles[i][j].top_obj = None
                 self.tiles[i][j].bottom_obj.image = self.tiles[i][j].bottom_obj.images[1]
@@ -203,7 +202,8 @@ class Level:
 
         if isinstance(self.tiles[i][j].bottom_obj, bottom.Spring):
             self.tiles[i][j].bottom_obj.update(0.4)
-            if self.tiles[i][j].top_obj is not None and self.tiles[i][j].top_obj.dx == 0 and self.tiles[i][j].top_obj.dy == 0:
+            if (self.tiles[i][j].top_obj is not None and self.tiles[i][j].top_obj.dx == 0 and
+                    self.tiles[i][j].top_obj.dy == 0):
                 spring = self.tiles[i][j].bottom_obj
                 x = i
                 y = j
