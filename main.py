@@ -13,8 +13,8 @@ finished = [False]
 
 pygame.mixer.music.load("Sound/Backround.mp3")
 pygame.mixer.music.play(-1)
-LEVELS = (levels.level1(screen), levels.level2(screen), levels.level3(screen))
-cur_level = 2
+LEVELS = [levels.level1(screen), levels.level2(screen), levels.level3(screen)]
+cur_level = 0
 
 
 def game_process(is_finished, _cur_level):
@@ -43,6 +43,8 @@ def game_process(is_finished, _cur_level):
                 LEVELS[_cur_level].player.to_right()
             elif event.key == pygame.K_ESCAPE:
                 finished[0] = True
+            elif event.key == pygame.K_r:
+                LEVELS[_cur_level] = levels.LIST_OF_LEVELS[_cur_level](screen)
 
     LEVELS[_cur_level].player.update(0.4)
     LEVELS[_cur_level].check_interaction()

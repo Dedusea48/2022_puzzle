@@ -73,3 +73,6 @@ def level3(screen):
     level_3.tiles[1][4].bottom_obj = back.Water(images.water_images())
 
     return level_3
+
+
+LIST_OF_LEVELS = (level1, level2, level3)
