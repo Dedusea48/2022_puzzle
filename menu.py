@@ -1,12 +1,9 @@
-#!/usr/bin/python3.4
-# Setup Python ----------------------------------------------- #
 import pygame
 import sys
-
-# Setup pygame/window ---------------------------------------- #
-mainClock = pygame.time.Clock()
 import pygame.locals as pl
 import main
+
+mainClock = pygame.time.Clock()
 
 pygame.init()
 pygame.display.set_caption('puzzle')
