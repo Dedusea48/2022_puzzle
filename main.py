@@ -13,12 +13,15 @@ finished = [False]
 
 pygame.mixer.music.load("Sound/Backround.mp3")
 pygame.mixer.music.play(-1)
-LEVELS = [levels.level1(screen), levels.level2(screen), levels.level3(screen)]
-cur_level = 0
+LEVELS = [levels.level1(screen), levels.level2(screen), levels.level3(screen), levels.level4(screen)]
+cur_level = 3
 
 
 def game_process(is_finished, _cur_level):
-    """"""
+    """
+    Функция, которая воспроизводит конкретный уровень
+    """
+    screen.fill((0, 0, 0))
     LEVELS[_cur_level].draw()
     pygame.display.update()
     clock.tick(FPS)
