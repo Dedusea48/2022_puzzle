@@ -14,6 +14,7 @@ GOLD = (200, 200, 0)
 
 
 def draw_text(text, font, color, surface, x, y):
+    """функция для отрисовки текста"""
     textobj = font.render(text, 1, color)
     textrect = textobj.get_rect()
     textrect.topleft = (x, y)
@@ -21,6 +22,7 @@ def draw_text(text, font, color, surface, x, y):
 
 
 def button_1(pup):
+    """создаёт кнопку play"""
     w, h = pygame.display.get_surface().get_size()
     font = pygame.font.Font('fonts/undertale battle font_0.ttf', min(int(h / 8), int(w / 8)))
 
@@ -38,6 +40,7 @@ def button_1(pup):
 
 
 def button_2(pup):
+    """создаёт кнопку quit"""
     w, h = pygame.display.get_surface().get_size()
     font = pygame.font.Font('fonts/undertale battle font_0.ttf', min(int(h / 8), int(w / 8)))
     draw_text('main menu', font, (255, 255, 255), main.screen, w / 200, h / 20)
@@ -55,6 +58,7 @@ def button_2(pup):
 
 
 def main_menu():
+    """вызывает менюшку"""
     click = False
     pic = pygame.image.load("image/fon.jpg")
     while True:
@@ -85,6 +89,9 @@ def main_menu():
 
 
 def finished_menu():
+    """
+    Функция выызывается при проождении всех уровней
+    """
     w, h = pygame.display.get_surface().get_size()
     font = pygame.font.Font('fonts/undertale battle font_0.ttf', min(int(h / 8), int(w / 8)))
     main.clear_screen(main.screen)
@@ -104,8 +111,8 @@ def finished_menu():
 
 def game():
     """
-    Function that starts a game. This is raised by the menu button,
-    here menu can be disabled, etc.
+    Функция, запускающая игру. Это вызывается кнопкой меню,
+    здесь меню можно отключить и т.д.
     """
     main.clear_screen(main.screen)
 
