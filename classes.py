@@ -88,6 +88,10 @@ class Level:
                 if self.tiles[i][j].top_obj is not None:
                     self.tiles[i][j].top_obj.draw(self.screen, self.x0 + i * self.size, self.y0 + j * self.size)
 
+    @staticmethod
+    def is_moving(obj):
+        return obj.dx == obj.dy
+
     def player_move(self, direction):
         """
         Движение игрока в зависимости от направления.
@@ -124,7 +128,7 @@ class Level:
         :return:
         """
         self.player.draw_kick(x)
-        if not isinstance(self.tiles[x][y].top_obj, top.Wall):
+        if not isinstance(self.tiles[x][y].top_obj, top.Wall) and self.is_moving(self.tiles[x][y].top_obj):
             _x = x + (x - self.player.x)
             _y = y + (y - self.player.y)
 
@@ -146,7 +150,7 @@ class Level:
         :param y: координата y клетки
         :return:
         """
-        if not isinstance(self.tiles[x][y].bottom_obj, bottom.Water):
+        if not isinstance(self.tiles[x][y].bottom_obj, bottom.Water) and self.is_moving(self.player):
             self.tiles[self.player.x][self.player.y].top_obj = None
             dx = x - self.player.x
             dy = y - self.player.y

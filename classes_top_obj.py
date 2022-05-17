@@ -197,13 +197,13 @@ class Player(TopObj):
         """
         if 0 < abs(self.dx) or 0 < abs(self.dy):
             if self.dx != 0:
-                self.dx += -self.dx / abs(self.dx) * 5
+                self.dx += -self.dx / abs(self.dx) * 8
                 time.sleep(0.01)
                 self.update(0.5)
                 if self.size > 1:
                     self.size = self.a * abs(self.dx) ** 2 + self.b * abs(self.dx) + 1
             if self.dy != 0:
-                self.dy += -self.dy / abs(self.dy) * 5
+                self.dy += -self.dy / abs(self.dy) * 8
                 time.sleep(0.01)
                 self.update(0.5)
                 if self.size > 1:
