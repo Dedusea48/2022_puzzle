@@ -90,6 +90,11 @@ class Level:
 
     @staticmethod
     def is_moving(obj):
+        """
+        Метод проверят, движется ли передаваемый объект.
+        :param obj: объект, который нужно проверить.
+        :return:
+        """
         return obj.dx == obj.dy
 
     def player_move(self, direction):
