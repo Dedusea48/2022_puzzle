@@ -34,7 +34,7 @@ def game_process(is_finished, _cur_level):
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        elif event.type == pygame.KEYDOWN and LEVELS[_cur_level].player.dx == LEVELS[_cur_level].player.dy:
+        elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 LEVELS[_cur_level].player_move('up')
             elif event.key == pygame.K_DOWN:
