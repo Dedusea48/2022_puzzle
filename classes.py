@@ -42,7 +42,7 @@ class Level:
         for i in range(horizontal_side):
             column = []
             for j in range(vertical_side):
-                floor = bottom.Floor((images.grass())[0])
+                floor = bottom.Floor(images.grass())
                 tile = Tile(None, floor)
                 column.append(tile)
             self.tiles.append(column)
