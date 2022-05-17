@@ -8,10 +8,6 @@ class TopObj:
         pass
 
 
-class JumpObj(TopObj):
-    pass
-
-
 class Box(TopObj):
     def __init__(self, _images):
         self.dx = 0
@@ -56,7 +52,7 @@ class Box(TopObj):
                 self.dx += -self.dx / abs(self.dx) * 5
                 time.sleep(0.01)
                 if self.size > 1:
-                    self.size = self.a * self.dx ** 2 + self.b * self.dx + 1
+                    self.size = self.a * abs(self.dx) ** 2 + self.b * abs(self.dx) + 1
             if self.dy != 0:
                 self.dy += -self.dy / abs(self.dy) * 5
                 time.sleep(0.01)

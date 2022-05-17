@@ -126,7 +126,7 @@ def level4(screen):
     level_4.tiles[0][6].top_obj = front.Box(images.box_images())
     level_4.tiles[2][6].top_obj = front.Box(images.box_images())
 
-    level_4.tiles[2][3].bottom_obj = back.Spring('up', 2, images.arrow())
+    level_4.tiles[2][3].bottom_obj = back.Spring('right', 2, images.arrow())
     level_4.tiles[4][5].bottom_obj = back.Spring('up', 3, images.arrow())
 
     return level_4
