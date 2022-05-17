@@ -10,6 +10,7 @@ import main
 
 pygame.init()
 pygame.display.set_caption('puzzle')
+GOLD = (200, 200, 0)
 
 
 
@@ -84,14 +85,36 @@ def main_menu():
         mainClock.tick(60)
 
 
+def finished_menu():
+    w, h = pygame.display.get_surface().get_size()
+    font = pygame.font.Font('fonts/undertale battle font_0.ttf', min(int(h / 8), int(w / 8)))
+    main.clear_screen(main.screen)
+    draw_text("You win", font, GOLD, main.screen, w/4, h/3)
+    pygame.display.update()
+    while not main.finished[0]:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    main.cur_level = 0
+                    main.LEVELS[main.cur_level] = main.levels.LIST_OF_LEVELS[main.cur_level](main.screen)
+                    main.finished[0] = True
+
+
 def game():
     """
     Function that starts a game. This is raised by the menu button,
     here menu can be disabled, etc.
     """
     main.clear_screen(main.screen)
+
+    pygame.display.update()
     while not main.finished[0]:
         main.cur_level = main.game_process(main.finished, main.cur_level)
+        if main.cur_level == len(main.LEVELS):
+            finished_menu()
     main.finished[0] = False
 
 
