@@ -116,6 +116,7 @@ def game():
     """
     main.clear_screen(main.screen)
 
+
     pygame.display.update()
     while not main.finished[0]:
         main.cur_level = main.game_process(main.finished, main.cur_level)
