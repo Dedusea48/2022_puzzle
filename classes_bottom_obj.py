@@ -3,44 +3,10 @@ import pygame.draw as dr
 
 
 class BottomObj:
-    def draw(self, screen, x, y):
-        """
-        Функция рисует обьект.
-        :param screen: - экран
-        :param x: - координата x
-        :param y: - координата y
-        :return:
-        """
-        pass
-
-
-class Floor(BottomObj):
-    def __init__(self, _images):
-        self.current = 0
-        # self.images = images
-        self.image = _images  # [self.current]
-        self.name = "floor"
-
-    def draw(self, screen, x, y):
-        """
-        Функция рисует пол.
-        :param screen: - экран
-        :param x: - координата x
-        :param y: - координата y
-        :return:
-
-        """
-        rect = self.image.get_rect()
-        rect.center = (x + 20, y + 20)
-        screen.blit(self.image, rect)
-
-
-class Water(BottomObj):
     def __init__(self, _images):
         self.current = 0
         self.images = _images
         self.image = self.images[self.current]
-        self.name = "water"
 
     def draw(self, screen, x, y):
         """
@@ -61,31 +27,29 @@ class Water(BottomObj):
         self.image = self.images[int(self.current)]
 
 
+class Floor(BottomObj):
+    def __init__(self, _images):
+        super().__init__(_images)
+
+
+class Water(BottomObj):
+    def __init__(self, _images):
+        super().__init__(_images)
+
+
 class NextLevelTile(BottomObj):
-    def __init__(self, image, x=0, y=0):
+    def __init__(self, _images, x=0, y=0):
+        super().__init__(_images)
         self.x = x
         self.y = y
-        self.image = image[0]
-
-    def draw(self, screen, x, y):
-        """
-        Функция рисует клетку.
-        :param screen: - экран
-        :param x: - координата x
-        :param y: - координата y
-        :return:
-
-        """
-        rect = self.image.get_rect()
-        rect.center = (x + 20, y + 20)
-        screen.blit(self.image, rect)
+        self.image = _images[0]
 
 
 class Spring(BottomObj):
     def __init__(self, direction, power, _images):
+        super().__init__(_images)
         self.direction = direction
         self.power = power
-        self.current = 0
         angle = 0
         if direction == 'up':
             angle = 0
@@ -113,9 +77,3 @@ class Spring(BottomObj):
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
         screen.blit(self.image, rect)
-
-    def update(self, speed):
-        self.current += speed
-        if int(self.current) >= len(self.images):
-            self.current = 0
-        self.image = self.images[int(self.current)]
