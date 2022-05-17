@@ -201,7 +201,7 @@ class Player(TopObj):
                 time.sleep(0.01)
                 self.update(0.5)
                 if self.size > 1:
-                    self.size = self.a * self.dx ** 2 + self.b * self.dx + 1
+                    self.size = self.a * abs(self.dx) ** 2 + self.b * abs(self.dx) + 1
             if self.dy != 0:
                 self.dy += -self.dy / abs(self.dy) * 5
                 time.sleep(0.01)
