@@ -1,3 +1,7 @@
+"""
+Главный модуль, который создает окно и уровни в нем
+"""
+
 import pygame
 import levels
 import images
@@ -14,7 +18,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.mixer.music.load("Sound/Backround.mp3")
 pygame.mixer.music.play(-1)
 LEVELS = [levels.level1(screen), levels.level2(screen), levels.level3(screen), levels.level4(screen)]
-cur_level = 3
+cur_level = 0
 
 
 def clear_screen(window):
@@ -25,7 +29,6 @@ def game_process(is_finished, _cur_level):
     """
     Функция, которая воспроизводит конкретный уровень
     """
-    screen.fill((0, 0, 0))
     LEVELS[_cur_level].draw()
     pygame.display.update()
     clock.tick(FPS)
@@ -39,7 +42,6 @@ def game_process(is_finished, _cur_level):
                 LEVELS[_cur_level].player_move('up')
             elif event.key == pygame.K_DOWN:
                 LEVELS[_cur_level].player_move('down')
-
             elif event.key == pygame.K_LEFT:
                 LEVELS[_cur_level].player.change_sprites(images.load_images_mirrored())
                 LEVELS[_cur_level].player_move('left')
