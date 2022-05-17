@@ -7,14 +7,18 @@ HEIGHT = 600
 FPS = 30
 
 pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 finished = [False]
 
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.mixer.music.load("Sound/Backround.mp3")
 pygame.mixer.music.play(-1)
 LEVELS = [levels.level1(screen), levels.level2(screen), levels.level3(screen)]
 cur_level = 0
+
+
+def clear_screen(window):
+    window.fill((0, 0, 0))
 
 
 def game_process(is_finished, _cur_level):
@@ -49,5 +53,6 @@ def game_process(is_finished, _cur_level):
     LEVELS[_cur_level].player.update(0.4)
     LEVELS[_cur_level].check_interaction()
     if LEVELS[_cur_level].completed:
+        clear_screen(screen)
         _cur_level += 1
     return _cur_level

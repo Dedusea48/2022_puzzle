@@ -9,7 +9,7 @@ import images
 
 
 def level1(screen):
-    level_1 = classes.Level(screen, 100, 100, 5, 5)
+    level_1 = classes.Level(screen, 100, 100, 7, 8)
     level_1.add_player(front.Player(images.load_images_player()), 0, 0)
     level_1.add_finish(back.NextLevelTile(images.ladder()), 4, 0)
     level_1.tiles[2][1].top_obj = front.Box(images.box_images())
