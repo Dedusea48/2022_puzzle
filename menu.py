@@ -13,7 +13,6 @@ pygame.display.set_caption('puzzle')
 GOLD = (200, 200, 0)
 
 
-
 def draw_text(text, font, color, surface, x, y):
     textobj = font.render(text, 1, color)
     textrect = textobj.get_rect()
@@ -89,7 +88,7 @@ def finished_menu():
     w, h = pygame.display.get_surface().get_size()
     font = pygame.font.Font('fonts/undertale battle font_0.ttf', min(int(h / 8), int(w / 8)))
     main.clear_screen(main.screen)
-    draw_text("You win", font, GOLD, main.screen, w/4, h/3)
+    draw_text("You win", font, GOLD, main.screen, w / 4, h / 3)
     pygame.display.update()
     while not main.finished[0]:
         for event in pygame.event.get():
