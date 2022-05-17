@@ -1,4 +1,5 @@
-import images
+import pygame
+import pygame.draw as dr
 
 
 class BottomObj:
@@ -85,8 +86,20 @@ class Spring(BottomObj):
         self.direction = direction
         self.power = power
         self.current = 0
-        self.images = _images
-        self.image = _images[self.current]
+        angle = 0
+        if direction == 'up':
+            angle = 0
+        if direction == 'down':
+            angle = 180
+        if direction == 'left':
+            angle = 90
+        if direction == 'right':
+            angle = 270
+
+        self.images = []
+        for image in _images:
+            self.images.append(pygame.transform.rotozoom(image, angle, 1))
+        self.image = pygame.transform.rotozoom(_images[self.current], angle, 1)
 
     def draw(self, screen, x, y):
         """
@@ -96,9 +109,7 @@ class Spring(BottomObj):
         :param y: - координата y
         :return:
         """
-        rect = self.image.get_rect()
-        rect.center = (x + 20, y + 20)
-        screen.blit((images.grass())[0], rect)
+        dr.rect(screen, 'yellow', (x, y, 40, 40))
         rect = self.image.get_rect()
         rect.center = (x + 20, y + 20)
         screen.blit(self.image, rect)
