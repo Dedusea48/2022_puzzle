@@ -119,36 +119,15 @@ def level4(screen):
     level_4.tiles[1][1].top_obj = front.Box(images.box_images())
     level_4.tiles[2][2].top_obj = front.Box(images.box_images())
     level_4.tiles[0][2].top_obj = front.Box(images.box_images())
-    level_4.tiles[1][3].top_obj = front.Box(images.box_images())
     level_4.tiles[0][4].top_obj = front.Box(images.box_images())
     level_4.tiles[2][4].top_obj = front.Box(images.box_images())
     level_4.tiles[1][5].top_obj = front.Box(images.box_images())
-    level_4.tiles[0][6].top_obj = front.Box(images.box_images())
     level_4.tiles[2][6].top_obj = front.Box(images.box_images())
 
     level_4.tiles[2][3].bottom_obj = back.Spring('right', 2, images.arrow())
     level_4.tiles[4][5].bottom_obj = back.Spring('up', 3, images.arrow())
 
     return level_4
-
-
-
-
-# def level4(screen):
-#     level_3 = classes.Level(screen, 100, 100, 6, 8)
-#     level_3.add_player(front.Player(images.load_images_player()), 0, 7)
-#     level_3.add_finish(back.NextLevelTile(images.ladder()), 5, 7)
-#
-#     level_3.tiles[1][2].top_obj = front.Box(images.box_images())
-#     level_3.tiles[4][1].top_obj = front.Box(images.box_images())
-#     level_3.tiles[1][5].top_obj = front.Box(images.box_images())
-#     level_3.tiles[1][6].top_obj = front.Box(images.box_images())
-#     level_3.tiles[2][5].top_obj = front.Box(images.box_images())
-#
-#     level_3.tiles[1][1].bottom_obj = back.Spring('down', 3, images.arrow())
-#     level_3.tiles[1][4].bottom_obj = back.Water(images.water_images())
-#
-#     return level_3
 
 
 LIST_OF_LEVELS = (level1, level2, level3, level4)
